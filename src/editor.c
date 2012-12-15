@@ -15,7 +15,8 @@ static char const _license[] =
 "You should have received a copy of the GNU General Public License\n"
 "along with this program.  If not, see <http://www.gnu.org/licenses/>.\n";
 /* TODO:
- * - use an infobar for errors
+ * - add a "Back" button to the "Find" dialog
+ * - add a "Replace" dialog
  * - consider using GtkSourceView also/instead */
 
 
@@ -54,6 +55,11 @@ struct _Editor
 	GtkWidget * window;
 	GtkWidget * view;
 	GtkWidget * statusbar;
+#if GTK_CHECK_VERSION(2, 18, 0)
+	/* infobar */
+	GtkWidget * infobar;
+	GtkWidget * infobar_label;
+#endif
 	/* preferences */
 	GtkWidget * pr_window;
 	GtkWidget * pr_font;
@@ -257,6 +263,24 @@ Editor * editor_new(void)
 	/* toolbar */
 	widget = desktop_toolbar_create(_editor_toolbar, editor, group);
 	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, FALSE, 0);
+#if GTK_CHECK_VERSION(2, 18, 0)
+	/* infobar */
+	editor->infobar = gtk_info_bar_new_with_buttons(GTK_STOCK_CLOSE,
+			GTK_RESPONSE_CLOSE, NULL);
+	gtk_info_bar_set_message_type(GTK_INFO_BAR(editor->infobar),
+			GTK_MESSAGE_ERROR);
+	g_signal_connect(editor->infobar, "close", G_CALLBACK(gtk_widget_hide),
+			NULL);
+	g_signal_connect(editor->infobar, "response", G_CALLBACK(
+				gtk_widget_hide), NULL);
+	widget = gtk_info_bar_get_content_area(GTK_INFO_BAR(editor->infobar));
+	editor->infobar_label = gtk_label_new(NULL);
+	gtk_widget_show(editor->infobar_label);
+	gtk_box_pack_start(GTK_BOX(widget), editor->infobar_label, TRUE, TRUE,
+			0);
+	gtk_widget_set_no_show_all(editor->infobar, TRUE);
+	gtk_box_pack_start(GTK_BOX(vbox), editor->infobar, FALSE, TRUE, 0);
+#endif
 	/* view */
 	widget = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(widget),
@@ -514,20 +538,25 @@ int editor_confirm(Editor * editor, char const * message, ...)
 /* editor_error */
 int editor_error(Editor * editor, char const * message, int ret)
 {
+#if GTK_CHECK_VERSION(2, 18, 0)
+	gtk_label_set_text(GTK_LABEL(editor->infobar_label), message);
+	gtk_widget_show(editor->infobar);
+#else
 	GtkWidget * dialog;
 
 	dialog = gtk_message_dialog_new(GTK_WINDOW(editor->window),
 			GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
 			GTK_BUTTONS_CLOSE,
-#if GTK_CHECK_VERSION(2, 6, 0)
+# if GTK_CHECK_VERSION(2, 6, 0)
 			"%s", _("Error"));
 	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
-#endif
+# endif
 			"%s", message);
 	gtk_window_set_title(GTK_WINDOW(dialog), _("Error"));
 	g_signal_connect(G_OBJECT(dialog), "response", G_CALLBACK(
 				gtk_widget_destroy), NULL);
 	gtk_widget_show(dialog);
+#endif
 	return ret;
 }
 
