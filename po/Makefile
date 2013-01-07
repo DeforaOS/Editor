@@ -26,6 +26,7 @@ it.mo: Editor.pot it.po
 
 clean:
 	$(RM) -- $(Editor.pot_OBJS) $(de.mo_OBJS) $(es.mo_OBJS) $(fr.mo_OBJS) $(it.mo_OBJS)
+	./gettext.sh -c -P "$(PREFIX)" -- "it.mo"
 
 distclean: clean
 	$(RM) -- $(TARGETS)
