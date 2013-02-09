@@ -86,13 +86,14 @@ static char const * _authors[] =
 #ifdef EMBEDDED
 static const DesktopAccel _editor_accel[] =
 {
-	{ G_CALLBACK(on_close), GDK_CONTROL_MASK, GDK_KEY_w },
-	{ G_CALLBACK(on_find), GDK_CONTROL_MASK, GDK_KEY_f },
-	{ G_CALLBACK(on_new), GDK_CONTROL_MASK, GDK_KEY_n },
-	{ G_CALLBACK(on_open), GDK_CONTROL_MASK, GDK_KEY_o },
-	{ G_CALLBACK(on_preferences), GDK_CONTROL_MASK, GDK_KEY_p },
-	{ G_CALLBACK(on_save), GDK_CONTROL_MASK, GDK_KEY_s },
-	{ G_CALLBACK(on_save_as), GDK_CONTROL_MASK, GDK_KEY_S },
+	{ G_CALLBACK(on_close), GDK_CONTROL_MASK, GDK_KEY_W },
+	{ G_CALLBACK(on_find), GDK_CONTROL_MASK, GDK_KEY_F },
+	{ G_CALLBACK(on_new), GDK_CONTROL_MASK, GDK_KEY_N },
+	{ G_CALLBACK(on_open), GDK_CONTROL_MASK, GDK_KEY_O },
+	{ G_CALLBACK(on_preferences), GDK_CONTROL_MASK, GDK_KEY_P },
+	{ G_CALLBACK(on_save), GDK_CONTROL_MASK, GDK_KEY_S },
+	{ G_CALLBACK(on_save_as), GDK_CONTROL_MASK | GDK_SHIFT_MASK,
+		GDK_KEY_S },
 	{ NULL, 0, 0 }
 };
 #endif
