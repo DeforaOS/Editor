@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2010 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2006-2013 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS Desktop Editor */
 /* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,6 @@
 #include "../config.h"
 #define _(string) gettext(string)
 
-
 /* constants */
 #ifndef PREFIX
 # define PREFIX		"/usr/local"
@@ -36,7 +35,40 @@
 #endif
 
 
+/* editor */
+/* private */
+/* prototypes */
+static int _editor(char const * filename);
+
+static int _error(char const * message, int ret);
+static int _usage(void);
+
+
 /* functions */
+/* editor */
+static int _editor(char const * filename)
+{
+	Editor * editor;
+
+	if((editor = editor_new()) == NULL)
+		return -1;
+	if(filename != NULL)
+		editor_open(editor, filename);
+	gtk_main();
+	editor_delete(editor);
+	return 0;
+}
+
+
+/* error */
+static int _error(char const * message, int ret)
+{
+	fputs("editor: ", stderr);
+	perror(message);
+	return ret;
+}
+
+
 /* usage */
 static int _usage(void)
 {
@@ -49,9 +81,9 @@ static int _usage(void)
 int main(int argc, char * argv[])
 {
 	int o;
-	Editor * editor;
 
-	setlocale(LC_ALL, "");
+	if(setlocale(LC_ALL, "") == NULL)
+		_error("setlocale", 1);
 	bindtextdomain(PACKAGE, LOCALEDIR);
 	textdomain(PACKAGE);
 	gtk_init(&argc, &argv);
@@ -63,11 +95,7 @@ int main(int argc, char * argv[])
 		}
 	if(optind != argc && optind + 1 != argc)
 		return _usage();
-	if((editor = editor_new()) == NULL)
-		return 2;
 	if(argc - optind == 1)
-		editor_open(editor, argv[optind]);
-	gtk_main();
-	editor_delete(editor);
-	return 0;
+		return (_editor(argv[optind]) == 0) ? 0 : 2;
+	return (_editor(NULL) == 0) ? 0 : 2;
 }
