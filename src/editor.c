@@ -214,6 +214,9 @@ static gboolean _editor_find(Editor * editor, char const * text,
 		gboolean sensitive, gboolean wrap);
 
 /* callbacks */
+#if GTK_CHECK_VERSION(2, 16, 0)
+static void _editor_on_find_clear(gpointer data);
+#endif
 static void _editor_on_find_clicked(gpointer data);
 static void _editor_on_find_hide(gpointer data);
 
@@ -309,6 +312,12 @@ Editor * editor_new(void)
 	editor->fi_entry = gtk_bin_get_child(GTK_BIN(editor->fi_text));
 	g_signal_connect_swapped(editor->fi_entry, "activate", G_CALLBACK(
 				_editor_on_find_clicked), editor);
+#if GTK_CHECK_VERSION(2, 16, 0)
+	gtk_entry_set_icon_from_stock(GTK_ENTRY(editor->fi_entry),
+			GTK_ENTRY_ICON_SECONDARY, GTK_STOCK_CLEAR);
+	g_signal_connect_swapped(editor->fi_entry, "icon-release", G_CALLBACK(
+				_editor_on_find_clear), editor);
+#endif
 	gtk_box_pack_start(GTK_BOX(hbox), editor->fi_text, FALSE, TRUE, 0);
 	editor->fi_case = gtk_check_button_new_with_label(_("Case-sensitive"));
 	gtk_box_pack_start(GTK_BOX(hbox), editor->fi_case, FALSE, TRUE, 0);
@@ -1177,6 +1186,17 @@ static gboolean _find_match(Editor * editor, GtkTextBuffer * buffer,
 
 
 /* callbacks */
+#if GTK_CHECK_VERSION(2, 16, 0)
+/* editor_on_find_clear */
+static void _editor_on_find_clear(gpointer data)
+{
+	Editor * editor = data;
+
+	gtk_entry_set_text(GTK_ENTRY(editor->fi_entry), "");
+}
+#endif
+
+
 /* editor_on_find_clicked */
 static void _editor_on_find_clicked(gpointer data)
 {
