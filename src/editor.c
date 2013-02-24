@@ -301,7 +301,6 @@ Editor * editor_new(void)
 #if GTK_CHECK_VERSION(2, 24, 0)
 	editor->fi_text = gtk_combo_box_new_with_model_and_entry(GTK_TREE_MODEL(
 				editor->fi_store));
-	editor->fi_entry = gtk_bin_get_child(GTK_BIN(editor->fi_text));
 	gtk_combo_box_set_entry_text_column(GTK_COMBO_BOX(editor->fi_text), 0);
 #else
 	editor->fi_text = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(
