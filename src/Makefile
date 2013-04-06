@@ -42,7 +42,7 @@ distclean: clean
 
 install: $(TARGETS)
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- editor $(DESTDIR)$(BINDIR)/editor
+	$(INSTALL) -m 0755 editor $(DESTDIR)$(BINDIR)/editor
 
 uninstall:
 	$(RM) -- $(DESTDIR)$(BINDIR)/editor
