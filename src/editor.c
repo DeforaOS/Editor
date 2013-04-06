@@ -249,6 +249,7 @@ Editor * editor_new(void)
 	group = gtk_accel_group_new();
 	editor->window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_add_accel_group(GTK_WINDOW(editor->window), group);
+	g_object_unref(group);
 	gtk_window_set_default_size(GTK_WINDOW(editor->window), 600, 400);
 	_new_set_title(editor);
 #if GTK_CHECK_VERSION(2, 6, 0)
@@ -852,7 +853,7 @@ gboolean editor_save(Editor * editor)
 	GtkTextBuffer * tbuf;
 	GtkTextIter start;
 	GtkTextIter end;
-	char * buf;
+	gchar * buf;
 	size_t len;
 
 	if(editor->filename == NULL)
@@ -866,13 +867,13 @@ gboolean editor_save(Editor * editor)
 		return FALSE;
 	}
 	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
-	/* FIXME allocating the complete file is not optimal */
+	/* XXX allocating the complete file is not optimal */
 	gtk_text_buffer_get_start_iter(GTK_TEXT_BUFFER(tbuf), &start);
 	gtk_text_buffer_get_end_iter(GTK_TEXT_BUFFER(tbuf), &end);
 	buf = gtk_text_buffer_get_text(GTK_TEXT_BUFFER(tbuf), &start, &end,
 			FALSE);
 	len = strlen(buf);
-	if(fwrite(buf, sizeof(char), len, fp) != len)
+	if(fwrite(buf, sizeof(*buf), len, fp) != len)
 	{
 		g_free(buf);
 		fclose(fp);
@@ -924,9 +925,9 @@ gboolean editor_save_as(Editor * editor, char const * filename)
 /* editor_save_as_dialog */
 gboolean editor_save_as_dialog(Editor * editor)
 {
-	GtkWidget * dialog;
-	char * filename = NULL;
 	gboolean ret;
+	GtkWidget * dialog;
+	gchar * filename = NULL;
 
 	dialog = gtk_file_chooser_dialog_new(_("Save as..."),
 			GTK_WINDOW(editor->window),
