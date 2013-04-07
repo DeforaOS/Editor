@@ -877,11 +877,15 @@ gboolean editor_save(Editor * editor)
 	{
 		g_free(buf);
 		fclose(fp);
-		editor_error(editor, _("Partial write"), 0);
+		editor_error(editor, _("Partial write"), 1);
 		return FALSE;
 	}
 	g_free(buf);
-	fclose(fp);
+	if(fclose(fp) != 0)
+	{
+		editor_error(editor, _("Partial write"), 1);
+		return FALSE;
+	}
 	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(tbuf), FALSE);
 	return TRUE;
 }
