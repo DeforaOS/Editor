@@ -474,6 +474,8 @@ void editor_about(Editor * editor)
 	desktop_about_dialog_set_translator_credits(editor->ab_window,
 			_("translator-credits"));
 	desktop_about_dialog_set_version(editor->ab_window, VERSION);
+	desktop_about_dialog_set_website(editor->ab_window,
+			"http://www.defora.org/");
 	g_signal_connect_swapped(G_OBJECT(editor->ab_window), "delete-event",
 			G_CALLBACK(_about_on_closex), editor);
 	gtk_widget_show(editor->ab_window);
