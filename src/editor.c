@@ -234,7 +234,7 @@ Editor * editor_new(void)
 	GtkWidget * hbox;
 	GtkWidget * widget;
 
-	if((editor = malloc(sizeof(*editor))) == NULL)
+	if((editor = object_new(sizeof(*editor))) == NULL)
 		return NULL;
 	editor->config = config_new();
 	if(editor->config == NULL)
@@ -370,7 +370,7 @@ void editor_delete(Editor * editor)
 #endif
 	if(editor->config != NULL)
 		config_delete(editor->config);
-	free(editor);
+	object_delete(editor);
 }
 
 
