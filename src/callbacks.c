@@ -265,3 +265,12 @@ void on_preferences(gpointer data)
 
 	on_edit_preferences(editor);
 }
+
+
+/* on_properties */
+void on_properties(gpointer data)
+{
+	Editor * editor = data;
+
+	on_file_properties(editor);
+}

@@ -48,8 +48,9 @@ void on_find(gpointer data);
 void on_new(gpointer data);
 void on_open(gpointer data);
 void on_paste(gpointer data);
+void on_preferences(gpointer data);
+void on_properties(gpointer data);
 void on_save(gpointer data);
 void on_save_as(gpointer data);
-void on_preferences(gpointer data);
 
 #endif /* !EDITOR_CALLBACKS_H */

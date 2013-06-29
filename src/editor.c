@@ -88,10 +88,8 @@ static char const * _authors[] =
 static const DesktopAccel _editor_accel[] =
 {
 	{ G_CALLBACK(on_close), GDK_CONTROL_MASK, GDK_KEY_W },
-	{ G_CALLBACK(on_find), GDK_CONTROL_MASK, GDK_KEY_F },
 	{ G_CALLBACK(on_new), GDK_CONTROL_MASK, GDK_KEY_N },
 	{ G_CALLBACK(on_open), GDK_CONTROL_MASK, GDK_KEY_O },
-	{ G_CALLBACK(on_preferences), GDK_CONTROL_MASK, GDK_KEY_P },
 	{ G_CALLBACK(on_save), GDK_CONTROL_MASK, GDK_KEY_S },
 	{ G_CALLBACK(on_save_as), GDK_CONTROL_MASK | GDK_SHIFT_MASK,
 		GDK_KEY_S },
@@ -193,10 +191,16 @@ static DesktopToolbar _editor_toolbar[] =
 	{ N_("Paste"), G_CALLBACK(on_paste), GTK_STOCK_PASTE, 0, 0, NULL },
 #ifdef EMBEDDED
 	{ "", NULL, NULL, 0, 0, NULL },
-	{ N_("Find"), G_CALLBACK(on_find), GTK_STOCK_FIND, 0, 0, NULL },
+	{ N_("Find"), G_CALLBACK(on_find), GTK_STOCK_FIND, GDK_CONTROL_MASK,
+		GDK_KEY_F, NULL },
 	{ "", NULL, NULL, 0, 0, NULL },
 	{ N_("Preferences"), G_CALLBACK(on_preferences), GTK_STOCK_PREFERENCES,
-		0, 0, NULL },
+		GDK_CONTROL_MASK, GDK_KEY_P, NULL },
+	{ N_("Properties"), G_CALLBACK(on_properties), GTK_STOCK_PROPERTIES,
+		GDK_MOD1_MASK, GDK_KEY_Return, NULL },
+	{ "", NULL, NULL, 0, 0, NULL },
+	{ N_("Help"), G_CALLBACK(on_help_contents), "help-contents",
+		0, GDK_KEY_F1, NULL },
 #endif
 	{ NULL, NULL, NULL, 0, 0, NULL }
 };
@@ -1117,7 +1121,8 @@ void editor_show_properties(Editor * editor, gboolean show)
 	if(show == FALSE)
 		/* XXX should really hide the window */
 		return;
-	p = g_filename_display_basename(editor->filename);
+	p = (editor->filename != NULL)
+		? g_filename_display_basename(editor->filename) : g_strdup("");
 	snprintf(buf, sizeof(buf), _("Properties of %s"), p);
 	g_free(p);
 	dialog = gtk_dialog_new_with_buttons(buf, GTK_WINDOW(editor->window),
@@ -1132,7 +1137,8 @@ void editor_show_properties(Editor * editor, gboolean show)
 #endif
 	/* filename */
 	/* XXX place the full filename in here */
-	p = g_filename_to_utf8(editor->filename, -1, NULL, NULL, NULL);
+	p = (editor->filename != NULL) ? p : g_strdup("");
+	p = g_filename_to_utf8(p, -1, NULL, NULL, NULL);
 	widget = gtk_entry_new();
 	gtk_entry_set_editable(GTK_ENTRY(widget), FALSE);
 	gtk_entry_set_text(GTK_ENTRY(widget), p);
