@@ -72,7 +72,7 @@ static int _error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs(_("Usage: editor [file]\n"), stderr);
+	fputs(_("Usage: editor [filename]\n"), stderr);
 	return 1;
 }
 
