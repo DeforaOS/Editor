@@ -37,6 +37,7 @@ void on_file_properties(gpointer data);
 void on_file_save(gpointer data);
 void on_file_save_as(gpointer data);
 void on_help_about(gpointer data);
+void on_help_contents(gpointer data);
 void on_insert_file(gpointer data);
 
 /* toolbar */

@@ -17,6 +17,7 @@
 
 #include <stdlib.h>
 #include <libintl.h>
+#include <Desktop.h>
 #include "editor.h"
 #include "callbacks.h"
 #include "../config.h"
@@ -156,6 +157,13 @@ void on_help_about(gpointer data)
 	Editor * editor = data;
 
 	editor_about(editor);
+}
+
+
+/* on_help_contents */
+void on_help_contents(gpointer data)
+{
+	desktop_help_contents(PACKAGE, "editor");
 }
 
 
