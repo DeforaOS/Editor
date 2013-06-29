@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2011 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2009-2013 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS Desktop Editor */
 /* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ void on_edit_unselect_all(gpointer data);
 void on_file_close(gpointer data);
 void on_file_new(gpointer data);
 void on_file_open(gpointer data);
+void on_file_properties(gpointer data);
 void on_file_save(gpointer data);
 void on_file_save_as(gpointer data);
 void on_help_about(gpointer data);

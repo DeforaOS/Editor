@@ -53,6 +53,7 @@ struct _Editor
 
 	/* widgets */
 	GtkWidget * window;
+	PangoFontDescription * bold;
 	GtkWidget * view;
 	GtkWidget * statusbar;
 #if GTK_CHECK_VERSION(2, 18, 0)
@@ -110,6 +111,9 @@ static const DesktopMenu _editor_menu_file[] =
 		GDK_CONTROL_MASK, GDK_KEY_S },
 	{ N_("_Save as..."), G_CALLBACK(on_file_save_as), GTK_STOCK_SAVE_AS,
 		GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_S },
+	{ "", NULL, NULL, 0, 0 },
+	{ N_("_Properties"), G_CALLBACK(on_file_properties),
+		GTK_STOCK_PROPERTIES, GDK_MOD1_MASK, GDK_KEY_Return },
 	{ "", NULL, NULL, 0, 0 },
 	{ N_("_Close"), G_CALLBACK(on_file_close), GTK_STOCK_CLOSE, 0, 0 },
 	{ NULL, NULL, NULL, 0, 0 }
@@ -257,6 +261,8 @@ Editor * editor_new(void)
 #endif
 	g_signal_connect_swapped(G_OBJECT(editor->window), "delete-event",
 			G_CALLBACK(on_closex), editor);
+	editor->bold = pango_font_description_new();
+	pango_font_description_set_weight(editor->bold, PANGO_WEIGHT_BOLD);
 	vbox = gtk_vbox_new(FALSE, 0);
 	/* menubar */
 #ifndef EMBEDDED
@@ -370,6 +376,7 @@ void editor_delete(Editor * editor)
 #endif
 	if(editor->config != NULL)
 		config_delete(editor->config);
+	pango_font_description_free(editor->bold);
 	object_delete(editor);
 }
 
@@ -1089,6 +1096,67 @@ static void _preferences_on_ok(gpointer data)
 	if(i < sizeof(_editor_wrap) / sizeof(*_editor_wrap))
 		editor_set_wrap_mode(editor, _editor_wrap[i].wrap);
 	editor_config_save(editor);
+}
+
+
+/* editor_show_properties */
+static GtkWidget * _properties_widget(Editor * editor, GtkSizeGroup * group,
+		char const * label, GtkWidget * value);
+
+void editor_show_properties(Editor * editor, gboolean show)
+{
+	GtkWidget * dialog;
+	GtkSizeGroup * group;
+	GtkWidget * vbox;
+	GtkWidget * widget;
+	gchar * p;
+	char buf[256];
+
+	if(show == FALSE)
+		/* XXX should really hide the window */
+		return;
+	p = g_filename_display_basename(editor->filename);
+	snprintf(buf, sizeof(buf), _("Properties of %s"), p);
+	g_free(p);
+	dialog = gtk_dialog_new_with_buttons(buf, GTK_WINDOW(editor->window),
+			GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
+			GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL);
+	gtk_window_set_default_size(GTK_WINDOW(dialog), 300, 200);
+	group = gtk_size_group_new(GTK_SIZE_GROUP_HORIZONTAL);
+#if GTK_CHECK_VERSION(2, 14, 0)
+	vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
+#else
+	vbox = dialog->vbox;
+#endif
+	/* filename */
+	/* XXX place the full filename in here */
+	p = g_filename_to_utf8(editor->filename, -1, NULL, NULL, NULL);
+	widget = gtk_entry_new();
+	gtk_entry_set_editable(GTK_ENTRY(widget), FALSE);
+	gtk_entry_set_text(GTK_ENTRY(widget), p);
+	g_free(p);
+	widget = _properties_widget(editor, group, _("Filename:"), widget);
+	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, TRUE, 0);
+	/* FIXME implement more properties */
+	gtk_widget_show_all(vbox);
+	gtk_dialog_run(GTK_DIALOG(dialog));
+	gtk_widget_destroy(dialog);
+}
+
+static GtkWidget * _properties_widget(Editor * editor, GtkSizeGroup * group,
+		char const * label, GtkWidget * value)
+{
+	GtkWidget * hbox;
+	GtkWidget * widget;
+
+	hbox = gtk_hbox_new(FALSE, 4);
+	widget = gtk_label_new(label);
+	gtk_widget_modify_font(widget, editor->bold);
+	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
+	gtk_size_group_add_widget(group, widget);
+	gtk_box_pack_start(GTK_BOX(hbox), widget, FALSE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), value, TRUE, TRUE, 0);
+	return hbox;
 }
 
 
