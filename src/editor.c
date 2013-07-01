@@ -822,7 +822,7 @@ void editor_open_dialog(Editor * editor)
 {
 	GtkWidget * dialog;
 	GtkFileFilter * filter;
-	char * filename = NULL;
+	gchar * filename = NULL;
 
 	dialog = gtk_file_chooser_dialog_new(_("Open file..."),
 			GTK_WINDOW(editor->window),
