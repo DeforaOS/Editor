@@ -773,6 +773,8 @@ void editor_open(Editor * editor, char const * filename)
 	editor->search = 0;
 	if(filename == NULL)
 	{
+		g_free(editor->filename);
+		editor->filename = NULL;
 		gtk_text_buffer_set_modified(tbuf, FALSE);
 		return;
 	}
