@@ -150,7 +150,7 @@ static const DesktopMenu _editor_menu_edit[] =
 
 static const DesktopMenu _editor_menu_insert[] =
 {
-	{ N_("_File..."), G_CALLBACK(on_insert_file), 0, 0, 0 },
+	{ N_("_File..."), G_CALLBACK(on_insert_file), "insert-text", 0, 0 },
 	{ NULL, NULL, NULL, 0, 0 }
 };
 
