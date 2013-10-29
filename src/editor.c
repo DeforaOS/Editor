@@ -1,6 +1,6 @@
 /* $Id$ */
 static char const _copyright[] =
-"Copyright (c) 2006-2013 Pierre Pronchery <khorben@defora.org>";
+"Copyright © 2006-2013 Pierre Pronchery <khorben@defora.org>";
 /* This file is part of DeforaOS Desktop Editor */
 static char const _license[] =
 "This program is free software: you can redistribute it and/or modify\n"
@@ -273,7 +273,7 @@ Editor * editor_new(void)
 	/* menubar */
 #ifndef EMBEDDED
 	widget = desktop_menubar_create(_editor_menubar, editor, group);
-	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, TRUE, 0);
 #else
 	desktop_accel_create(_editor_accel, editor, group);
 #endif
@@ -353,7 +353,7 @@ Editor * editor_new(void)
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
 	/* statusbar */
 	editor->statusbar = gtk_statusbar_new();
-	gtk_box_pack_start(GTK_BOX(vbox), editor->statusbar, FALSE, TRUE, 0);
+	gtk_box_pack_end(GTK_BOX(vbox), editor->statusbar, FALSE, TRUE, 0);
 	/* preferences */
 	editor->pr_window = NULL;
 	/* about */
