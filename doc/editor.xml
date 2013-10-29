@@ -49,8 +49,7 @@
 	<refsynopsisdiv>
 		<cmdsynopsis>
 			<command>&name;</command>
-			<arg choice="opt">
-				<replaceable>filename</replaceable></arg>
+			<arg choice="opt"><replaceable>filename</replaceable></arg>
 		</cmdsynopsis>
 	</refsynopsisdiv>
 	<refsect1 id="description">
