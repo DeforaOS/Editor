@@ -82,7 +82,7 @@ msgstr "_Fichier..."
 
 #: ../src/editor.c:159
 msgid "_Contents"
-msgstr ""
+msgstr "_Sommaire"
 
 #: ../src/editor.c:161
 msgid "_About"
