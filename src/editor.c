@@ -124,7 +124,7 @@ static const DesktopMenu _editor_menu_edit[] =
 		GDK_KEY_Z },
 	{ N_("_Redo"), NULL, GTK_STOCK_REDO, GDK_CONTROL_MASK, GDK_KEY_R },
 	{ "", NULL, NULL, 0, 0 },
-	{ N_("_Cut"), G_CALLBACK(on_edit_cut), GTK_STOCK_CUT, GDK_CONTROL_MASK,
+	{ N_("Cu_t"), G_CALLBACK(on_edit_cut), GTK_STOCK_CUT, GDK_CONTROL_MASK,
 		GDK_KEY_X },
 	{ N_("_Copy"), G_CALLBACK(on_edit_copy), GTK_STOCK_COPY,
 		GDK_CONTROL_MASK, GDK_KEY_C },
