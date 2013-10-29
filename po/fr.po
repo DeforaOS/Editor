@@ -142,7 +142,7 @@ msgstr "Préférences"
 
 #: ../src/editor.c:199
 msgid "Properties"
-msgstr ""
+msgstr "Propriétés"
 
 #: ../src/editor.c:202
 msgid "Help"
