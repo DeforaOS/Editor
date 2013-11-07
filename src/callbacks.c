@@ -30,7 +30,8 @@ gboolean on_closex(gpointer data)
 {
 	Editor * editor = data;
 
-	return editor_close(editor);
+	editor_close(editor);
+	return TRUE;
 }
 
 

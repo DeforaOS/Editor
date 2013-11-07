@@ -247,6 +247,7 @@ Editor * editor_new(void)
 	if((editor = object_new(sizeof(*editor))) == NULL)
 		return NULL;
 	editor->config = config_new();
+	editor->window = NULL;
 	if(editor->config == NULL)
 	{
 		editor_delete(editor);
@@ -380,6 +381,8 @@ void editor_delete(Editor * editor)
 #ifdef DEBUG
 	fprintf(stderr, "DEBUG: %s()\n", __func__);
 #endif
+	if(editor->window != NULL)
+		gtk_widget_destroy(editor->window);
 	if(editor->config != NULL)
 		config_delete(editor->config);
 	pango_font_description_free(editor->bold);
@@ -587,7 +590,7 @@ int editor_error(Editor * editor, char const * message, int ret)
 
 
 /* editor_close */
-gboolean editor_close(Editor * editor)
+int editor_close(Editor * editor)
 {
 	int res;
 
@@ -597,8 +600,9 @@ gboolean editor_close(Editor * editor)
 	if(gtk_text_buffer_get_modified(gtk_text_view_get_buffer(GTK_TEXT_VIEW(
 						editor->view))) == FALSE)
 	{
+		gtk_widget_hide(editor->window);
 		gtk_main_quit();
-		return FALSE;
+		return 0;
 	}
 	res = editor_confirm(editor, _("There are unsaved changes.\n"
 				"Discard or save them?"),
@@ -606,11 +610,12 @@ gboolean editor_close(Editor * editor)
 			GTK_STOCK_DISCARD, GTK_RESPONSE_REJECT,
 			GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT, NULL);
 	if(res == GTK_RESPONSE_CANCEL || res == GTK_RESPONSE_DELETE_EVENT)
-		return TRUE;
+		return 1;
 	else if(res == GTK_RESPONSE_ACCEPT && editor_save(editor) != TRUE)
-		return TRUE;
+		return 1;
+	gtk_widget_hide(editor->window);
 	gtk_main_quit();
-	return FALSE;
+	return 0;
 }
 
 

@@ -46,7 +46,7 @@ int editor_config_save(Editor * editor);
 int editor_confirm(Editor * editor, char const * message, ...);
 int editor_error(Editor * editor, char const * message, int ret);
 
-gboolean editor_close(Editor * editor);
+int editor_close(Editor * editor);
 void editor_open(Editor * editor, char const * filename);
 void editor_open_dialog(Editor * editor);
 
