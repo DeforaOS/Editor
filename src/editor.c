@@ -742,7 +742,7 @@ int editor_insert_file_dialog(Editor * editor)
 
 
 /* editor_open */
-void editor_open(Editor * editor, char const * filename)
+int editor_open(Editor * editor, char const * filename)
 {
 	int res;
 	FILE * fp;
@@ -769,9 +769,9 @@ void editor_open(Editor * editor, char const * filename)
 				GTK_STOCK_SAVE, GTK_RESPONSE_ACCEPT,
 				NULL);
 		if(res == GTK_RESPONSE_ACCEPT && editor_save(editor) != TRUE)
-			return;
+			return -1;
 		else if(res != GTK_RESPONSE_REJECT)
-			return;
+			return 1;
 	}
 	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
 	gtk_text_buffer_set_text(tbuf, "", 0);
@@ -781,14 +781,13 @@ void editor_open(Editor * editor, char const * filename)
 		g_free(editor->filename);
 		editor->filename = NULL;
 		gtk_text_buffer_set_modified(tbuf, FALSE);
-		return;
+		return 0;
 	}
 	/* FIXME use a GIOChannel instead (with a modal GtkDialog) */
 	if((fp = fopen(filename, "r")) == NULL)
 	{
 		snprintf(buf, sizeof(buf), "%s: %s", filename, strerror(errno));
-		editor_error(editor, buf, 1);
-		return;
+		return -editor_error(editor, buf, 1);
 	}
 	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
 	gtk_text_buffer_set_text(tbuf, "", 0);
@@ -819,14 +818,16 @@ void editor_open(Editor * editor, char const * filename)
 	fclose(fp);
 	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(gtk_text_view_get_buffer(
 					GTK_TEXT_VIEW(editor->view))), FALSE);
-	editor->filename = g_strdup(filename);
+	editor->filename = g_strdup(filename); /* XXX may fail */
 	_new_set_title(editor); /* XXX make it a generic private function */
+	return 0;
 }
 
 
 /* editor_open_dialog */
-void editor_open_dialog(Editor * editor)
+int editor_open_dialog(Editor * editor)
 {
+	int ret;
 	GtkWidget * dialog;
 	GtkFileFilter * filter;
 	gchar * filename = NULL;
@@ -849,9 +850,10 @@ void editor_open_dialog(Editor * editor)
 					dialog));
 	gtk_widget_destroy(dialog);
 	if(filename == NULL)
-		return;
-	editor_open(editor, filename);
+		return 1;
+	ret = editor_open(editor, filename);
 	g_free(filename);
+	return ret;
 }
 
 

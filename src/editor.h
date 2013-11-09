@@ -47,8 +47,8 @@ int editor_confirm(Editor * editor, char const * message, ...);
 int editor_error(Editor * editor, char const * message, int ret);
 
 int editor_close(Editor * editor);
-void editor_open(Editor * editor, char const * filename);
-void editor_open_dialog(Editor * editor);
+int editor_open(Editor * editor, char const * filename);
+int editor_open_dialog(Editor * editor);
 
 void editor_copy(Editor * editor);
 void editor_cut(Editor * editor);
