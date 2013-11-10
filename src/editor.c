@@ -755,8 +755,8 @@ int editor_open(Editor * editor, char const * filename)
 	size_t wlen;
 	GError * error = NULL;
 
-	if(gtk_text_buffer_get_modified(gtk_text_view_get_buffer(GTK_TEXT_VIEW(
-						editor->view))) == TRUE)
+	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
+	if(gtk_text_buffer_get_modified(tbuf) == TRUE)
 	{
 		res = editor_confirm(editor, _("There are unsaved changes.\n"
 					"Discard or save them?"),
@@ -773,7 +773,6 @@ int editor_open(Editor * editor, char const * filename)
 		else if(res != GTK_RESPONSE_REJECT)
 			return 1;
 	}
-	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
 	gtk_text_buffer_set_text(tbuf, "", 0);
 	editor->search = 0;
 	if(filename == NULL)
@@ -816,8 +815,7 @@ int editor_open(Editor * editor, char const * filename)
 #endif
 	}
 	fclose(fp);
-	gtk_text_buffer_set_modified(GTK_TEXT_BUFFER(gtk_text_view_get_buffer(
-					GTK_TEXT_VIEW(editor->view))), FALSE);
+	gtk_text_buffer_set_modified(tbuf, FALSE);
 	editor->filename = g_strdup(filename); /* XXX may fail */
 	_new_set_title(editor); /* XXX make it a generic private function */
 	return 0;
