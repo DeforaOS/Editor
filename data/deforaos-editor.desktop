@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Text editor
 Comment=A simple text editor
+TryExec=editor
 Exec=editor
 Icon=text-editor
 Type=Application
