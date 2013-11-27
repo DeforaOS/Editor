@@ -22,7 +22,7 @@ dist:
 	$(LN) -s -- . $(PACKAGE)-$(VERSION)
 	@$(TAR) $(PACKAGE)-$(VERSION).tar.gz -- \
 		$(PACKAGE)-$(VERSION)/data/Makefile \
-		$(PACKAGE)-$(VERSION)/data/editor.desktop \
+		$(PACKAGE)-$(VERSION)/data/deforaos-editor.desktop \
 		$(PACKAGE)-$(VERSION)/data/project.conf \
 		$(PACKAGE)-$(VERSION)/doc/Makefile \
 		$(PACKAGE)-$(VERSION)/doc/docbook.sh \

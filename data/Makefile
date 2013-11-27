@@ -13,9 +13,9 @@ distclean: clean
 
 install:
 	$(MKDIR) $(DESTDIR)$(PREFIX)/share/applications
-	$(INSTALL) -m 0644 editor.desktop $(DESTDIR)$(PREFIX)/share/applications/editor.desktop
+	$(INSTALL) -m 0644 deforaos-editor.desktop $(DESTDIR)$(PREFIX)/share/applications/deforaos-editor.desktop
 
 uninstall:
-	$(RM) -- $(DESTDIR)$(PREFIX)/share/applications/editor.desktop
+	$(RM) -- $(DESTDIR)$(PREFIX)/share/applications/deforaos-editor.desktop
 
 .PHONY: all clean distclean install uninstall
