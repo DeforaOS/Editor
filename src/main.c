@@ -24,6 +24,9 @@
 #define _(string) gettext(string)
 
 /* constants */
+#ifndef PROGNAME
+# define PROGNAME	"editor"
+#endif
 #ifndef PREFIX
 # define PREFIX		"/usr/local"
 #endif
@@ -63,7 +66,7 @@ static int _editor(char const * filename)
 /* error */
 static int _error(char const * message, int ret)
 {
-	fputs("editor: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -72,7 +75,7 @@ static int _error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs(_("Usage: editor [filename]\n"), stderr);
+	fprintf(stderr, _("Usage: %s [filename]\n"), PROGNAME);
 	return 1;
 }
 
