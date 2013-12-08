@@ -2,7 +2,7 @@
 Name=Text editor
 Comment=A simple text editor
 TryExec=editor
-Exec=editor
+Exec=editor %f
 Icon=text-editor
 Type=Application
 Categories=Utility;TextEditor;GTK;
