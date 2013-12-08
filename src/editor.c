@@ -918,24 +918,25 @@ gboolean editor_save_as(Editor * editor, char const * filename)
 {
 	struct stat st;
 	GtkWidget * dialog;
-	int ret;
+	int res;
 
 	if(stat(filename, &st) == 0)
 	{
 		dialog = gtk_message_dialog_new(GTK_WINDOW(editor->window),
 				GTK_DIALOG_MODAL
 				| GTK_DIALOG_DESTROY_WITH_PARENT,
-				GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, "%s",
+				GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO,
 #if GTK_CHECK_VERSION(2, 6, 0)
-				_("Question"));
+				"%s", _("Question"));
 		gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(
-					dialog), "%s",
+					dialog),
 #endif
+				"%s",
 				_("This file already exists. Overwrite?"));
 		gtk_window_set_title(GTK_WINDOW(dialog), _("Question"));
-		ret = gtk_dialog_run(GTK_DIALOG(dialog));
+		res = gtk_dialog_run(GTK_DIALOG(dialog));
 		gtk_widget_destroy(dialog);
-		if(ret == GTK_RESPONSE_NO)
+		if(res == GTK_RESPONSE_NO)
 			return FALSE;
 	}
 	g_free(editor->filename);
