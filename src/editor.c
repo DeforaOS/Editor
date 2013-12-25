@@ -1044,15 +1044,16 @@ void editor_show_preferences(Editor * editor, gboolean show)
 	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
 	gtk_size_group_add_widget(group, widget);
 	gtk_box_pack_start(GTK_BOX(hbox), widget, FALSE, TRUE, 0);
-#if GTK_CHECK_VERSION(3, 0, 0)
+#if GTK_CHECK_VERSION(2, 24, 0)
 	editor->pr_wrap = gtk_combo_box_text_new();
 #else
 	editor->pr_wrap = gtk_combo_box_new_text();
 #endif
 	for(i = 0; i < sizeof(_editor_wrap) / sizeof(*_editor_wrap); i++)
-#if GTK_CHECK_VERSION(3, 0, 0)
-		gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(editor->pr_wrap),
-				NULL, _(_editor_wrap[i].name));
+#if GTK_CHECK_VERSION(2, 24, 0)
+		gtk_combo_box_text_append_text(
+				GTK_COMBO_BOX_TEXT(editor->pr_wrap),
+				_(_editor_wrap[i].name));
 #else
 		gtk_combo_box_append_text(GTK_COMBO_BOX(editor->pr_wrap),
 				_(_editor_wrap[i].name));
