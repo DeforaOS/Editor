@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <locale.h>
+#include <errno.h>
 #include <libintl.h>
 #include <System.h>
 #include "../src/filter.h"
@@ -89,9 +90,10 @@ static int _filter_exec(char const * template, int argc, char const ** argv)
 	int ret = 0;
 	pid_t pid;
 	int status;
+	pid_t p;
 
 	if((pid = fork()) == -1)
-		return -_error("fork", 1);
+		return -error_set_code(1, "%s: %s", "fork", strerror(errno));
 	if(pid == 0)
 	{
 		if(_filter_exec_child(template, argc, argv) != 0)
@@ -99,16 +101,16 @@ static int _filter_exec(char const * template, int argc, char const ** argv)
 		_exit(2);
 	}
 	fclose(stdin);
-	for(; waitpid(pid, &status, 0) != -1;)
-		if(WIFEXITED(status))
+	for(; (p = waitpid(pid, &status, 0)) != -1 || errno != ECHILD;)
+		if(p == pid && WIFEXITED(status))
 		{
 			if(WEXITSTATUS(status) != 0)
 				ret = -error_set_code(1, "%s: %s%u", argv[0],
-						"Exited with error code ",
+						_("Exited with error code "),
 						WEXITSTATUS(status));
 			break;
 		}
-		else if(WIFSIGNALED(status))
+		else if(p == pid && WIFSIGNALED(status))
 			break;
 	return ret;
 }
@@ -120,6 +122,7 @@ static int _filter_exec_child(char const * template, int argc,
 	char ** args;
 	int i;
 
+	/* prepare the arguments */
 	if((args = malloc(sizeof(*args) * (argc + 1))) == NULL)
 		return -_error("malloc", 1);
 	for(i = 0; i < argc; i++)
@@ -131,6 +134,7 @@ static int _filter_exec_child(char const * template, int argc,
 			ret = -_error("strdup", 1);
 	if(ret == 0 && execvp(args[0], args) != 0)
 		ret = -_error(args[0], 1);
+	/* free the arguments (an error occurred) */
 	for(i = 0; i <= argc; i++)
 		free(args[i]);
 	free(args);
