@@ -1,6 +1,6 @@
 /* $Id$ */
 static char const _copyright[] =
-"Copyright © 2006-2013 Pierre Pronchery <khorben@defora.org>";
+"Copyright © 2006-2014 Pierre Pronchery <khorben@defora.org>";
 /* This file is part of DeforaOS Desktop Editor */
 static char const _license[] =
 "This program is free software: you can redistribute it and/or modify\n"
@@ -46,6 +46,7 @@ static char const _license[] =
 /* types */
 struct _Editor
 {
+	EditorPrefs prefs;
 	char * filename;
 	size_t search;
 
@@ -236,7 +237,7 @@ static void _editor_on_find_hide(gpointer data);
 /* editor_new */
 static void _new_set_title(Editor * editor);
 
-Editor * editor_new(void)
+Editor * editor_new(EditorPrefs * prefs)
 {
 	Editor * editor;
 	GtkAccelGroup * group;
@@ -246,6 +247,10 @@ Editor * editor_new(void)
 
 	if((editor = object_new(sizeof(*editor))) == NULL)
 		return NULL;
+	if(prefs != NULL)
+		editor->prefs = *prefs;
+	else
+		memset(&editor->prefs, 0, sizeof(editor->prefs));
 	editor->config = config_new();
 	editor->window = NULL;
 	if(editor->config == NULL)

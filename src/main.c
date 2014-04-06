@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2006-2013 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2006-2014 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS Desktop Editor */
 /* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,9 @@
 
 
 #include <unistd.h>
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include <locale.h>
 #include <libintl.h>
 #include "editor.h"
@@ -41,7 +43,8 @@
 /* editor */
 /* private */
 /* prototypes */
-static int _editor(char const * filename);
+static int _editor(EditorPrefs * prefs, char const * filename);
+static int _editor_filter(EditorPrefs * prefs);
 
 static int _error(char const * message, int ret);
 static int _usage(void);
@@ -49,17 +52,95 @@ static int _usage(void);
 
 /* functions */
 /* editor */
-static int _editor(char const * filename)
+static int _editor(EditorPrefs * prefs, char const * filename)
 {
 	Editor * editor;
 
-	if((editor = editor_new()) == NULL)
+	if((editor = editor_new(prefs)) == NULL)
 		return -1;
 	if(filename != NULL)
 		editor_open(editor, filename);
 	gtk_main();
 	editor_delete(editor);
 	return 0;
+}
+
+
+/* editor_filter */
+static int _filter_read(int fd, char const * template);
+static int _filter_write(char const * template);
+
+static int _editor_filter(EditorPrefs * prefs)
+{
+	int ret = 0;
+	char template[] = "/tmp/editor.XXXXXX";
+	int fd;
+
+#ifdef DEBUG
+	fprintf(stderr, "DEBUG: %s()\n", __func__);
+#endif
+	/* obtain a temporary file */
+	if((fd = mkstemp(template)) < 0)
+		return -_error("mkstemp", 1);
+#ifdef DEBUG
+	fprintf(stderr, "DEBUG: %s() \"%s\"\n", __func__, template);
+#endif
+	/* write to and from the temporary file */
+	if((ret = _filter_read(fd, template)) == 0
+			&& (ret = _editor(prefs, template)) == 0)
+		ret = _filter_write(template);
+	/* remove the temporary file */
+	if(unlink(template) != 0)
+		/* we can otherwise ignore this error */
+		_error(template, 1);
+	return ret;
+}
+
+static int _filter_read(int fd, char const * template)
+{
+	int ret;
+	FILE * fp;
+	char buf[BUFSIZ];
+	size_t s;
+
+	if((fp = fdopen(fd, "w")) == NULL)
+	{
+		unlink(template);
+		return -_error("stdin", 1);
+	}
+	/* read from the standard input */
+	for(ret = 0; ret == 0 && (s = fread(buf, sizeof(*buf), sizeof(buf)
+					/ sizeof(*buf), stdin)) > 0;)
+		/* write to the temporary file */
+		if(fwrite(buf, sizeof(*buf), s, fp) != s)
+			ret = -_error(template, 1);
+	if(ret == 0 && !feof(stdin))
+		ret = -_error("stdin", 1);
+	if(fclose(fp) != 0 && ret == 0)
+		ret = -_error(template, 1);
+	return ret;
+}
+
+static int _filter_write(char const * template)
+{
+	int ret;
+	FILE * fp;
+	char buf[BUFSIZ];
+	size_t s;
+
+	if((fp = fopen(template, "r")) == NULL)
+		return -_error(template, 1);
+	/* read from the temporary file */
+	for(ret = 0; (s = fread(buf, sizeof(*buf), sizeof(buf) / sizeof(*buf),
+					fp)) > 0;)
+		/* write to the standard output */
+		if(fwrite(buf, sizeof(*buf), s, stdout) != s)
+			ret = -_error("stdout", 1);
+	if(ret == 0 && !feof(fp))
+		ret = -_error(template, 1);
+	if(fclose(fp) != 0 && ret == 0)
+		ret = -_error(template, 1);
+	return ret;
 }
 
 
@@ -75,7 +156,8 @@ static int _error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fprintf(stderr, _("Usage: %s [filename]\n"), PROGNAME);
+	fprintf(stderr, _("Usage: %s [-F][filename]\n"
+"  -F	Behave like a filter\n"), PROGNAME);
 	return 1;
 }
 
@@ -83,22 +165,31 @@ static int _usage(void)
 /* main */
 int main(int argc, char * argv[])
 {
+	EditorPrefs prefs;
 	int o;
 
+	memset(&prefs, 0, sizeof(prefs));
 	if(setlocale(LC_ALL, "") == NULL)
 		_error("setlocale", 1);
 	bindtextdomain(PACKAGE, LOCALEDIR);
 	textdomain(PACKAGE);
 	gtk_init(&argc, &argv);
-	while((o = getopt(argc, argv, "")) != -1)
+	while((o = getopt(argc, argv, "F")) != -1)
 		switch(o)
 		{
+			case 'F':
+				prefs.filter = 1;
+				break;
 			default:
 				return _usage();
 		}
+	if(prefs.filter != 0 && optind == argc)
+		return (_editor_filter(&prefs) == 0) ? 0 : 2;
+	/* ignore filter mode if a filename was supplied */
+	prefs.filter = 0;
 	if(optind != argc && optind + 1 != argc)
 		return _usage();
 	if(argc - optind == 1)
-		return (_editor(argv[optind]) == 0) ? 0 : 2;
-	return (_editor(NULL) == 0) ? 0 : 2;
+		return (_editor(&prefs, argv[optind]) == 0) ? 0 : 2;
+	return (_editor(&prefs, NULL) == 0) ? 0 : 2;
 }
