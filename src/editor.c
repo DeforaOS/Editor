@@ -1196,7 +1196,9 @@ void editor_show_properties(Editor * editor, gboolean show)
 	GtkWidget * vbox;
 	GtkWidget * widget;
 	gchar * p;
+	gchar * q;
 	char buf[256];
+	GError * error = NULL;
 
 	if(show == FALSE)
 		/* XXX should really hide the window */
@@ -1216,12 +1218,16 @@ void editor_show_properties(Editor * editor, gboolean show)
 	vbox = dialog->vbox;
 #endif
 	/* filename */
-	/* XXX place the full filename in here */
-	p = (editor->filename != NULL) ? p : g_strdup("");
-	p = g_filename_to_utf8(p, -1, NULL, NULL, NULL);
+	p = g_strdup((editor->filename != NULL) ? editor->filename : "");
+	if((q = g_filename_to_utf8(p, -1, NULL, NULL, &error)) == NULL)
+	{
+		editor_error(NULL, error->message, 1);
+		g_error_free(error);
+		q = p;
+	}
 	widget = gtk_entry_new();
 	gtk_entry_set_editable(GTK_ENTRY(widget), FALSE);
-	gtk_entry_set_text(GTK_ENTRY(widget), p);
+	gtk_entry_set_text(GTK_ENTRY(widget), q);
 	g_free(p);
 	widget = _properties_widget(editor, group, _("Filename:"), widget);
 	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, TRUE, 0);
