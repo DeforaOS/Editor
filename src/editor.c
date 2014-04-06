@@ -328,7 +328,11 @@ Editor * editor_new(EditorPrefs * prefs)
 			G_CALLBACK(on_closex), editor);
 	editor->bold = pango_font_description_new();
 	pango_font_description_set_weight(editor->bold, PANGO_WEIGHT_BOLD);
+#if GTK_CHECK_VERSION(3, 0, 0)
+	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+#else
 	vbox = gtk_vbox_new(FALSE, 0);
+#endif
 	/* menubar */
 #ifndef EMBEDDED
 	widget = desktop_menubar_create(editor->prefs.filter
@@ -374,7 +378,11 @@ Editor * editor_new(EditorPrefs * prefs)
 	gtk_container_add(GTK_CONTAINER(widget), editor->view);
 	gtk_box_pack_start(GTK_BOX(vbox), widget, TRUE, TRUE, 0);
 	/* find */
+#if GTK_CHECK_VERSION(3, 0, 0)
+	editor->fi_dialog = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
+#else
 	editor->fi_dialog = gtk_hbox_new(FALSE, 4);
+#endif
 	hbox = editor->fi_dialog;
 	gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
 	widget = gtk_label_new(_("Find:"));
@@ -1110,7 +1118,11 @@ void editor_show_preferences(Editor * editor, gboolean show)
 #endif
 	group = gtk_size_group_new(GTK_SIZE_GROUP_HORIZONTAL);
 	/* font */
+#if GTK_CHECK_VERSION(3, 0, 0)
+	hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
+#else
 	hbox = gtk_hbox_new(FALSE, 4);
+#endif
 	widget = gtk_label_new(_("Font:"));
 	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
 	gtk_size_group_add_widget(group, widget);
@@ -1120,7 +1132,11 @@ void editor_show_preferences(Editor * editor, gboolean show)
 	gtk_box_pack_start(GTK_BOX(hbox), editor->pr_font, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
 	/* wrap mode */
+#if GTK_CHECK_VERSION(3, 0, 0)
+	hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
+#else
 	hbox = gtk_hbox_new(FALSE, 4);
+#endif
 	widget = gtk_label_new(_("Wrap mode:"));
 	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
 	gtk_size_group_add_widget(group, widget);
@@ -1272,7 +1288,11 @@ static GtkWidget * _properties_widget(Editor * editor, GtkSizeGroup * group,
 	GtkWidget * hbox;
 	GtkWidget * widget;
 
+#if GTK_CHECK_VERSION(3, 0, 0)
+	hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
+#else
 	hbox = gtk_hbox_new(FALSE, 4);
+#endif
 	widget = gtk_label_new(label);
 	gtk_widget_modify_font(widget, editor->bold);
 	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
