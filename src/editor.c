@@ -1195,6 +1195,8 @@ void editor_show_properties(Editor * editor, gboolean show)
 	GtkSizeGroup * group;
 	GtkWidget * vbox;
 	GtkWidget * widget;
+	GtkTextBuffer * tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(
+				editor->view));
 	gchar * p;
 	gchar * q;
 	char buf[256];
@@ -1230,6 +1232,12 @@ void editor_show_properties(Editor * editor, gboolean show)
 	gtk_entry_set_text(GTK_ENTRY(widget), q);
 	g_free(p);
 	widget = _properties_widget(editor, group, _("Filename:"), widget);
+	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, TRUE, 0);
+	/* characters */
+	snprintf(buf, sizeof(buf), "%u", gtk_text_buffer_get_char_count(tbuf));
+	widget = gtk_label_new(buf);
+	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
+	widget = _properties_widget(editor, group, _("Characters:"), widget);
 	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, TRUE, 0);
 	/* FIXME implement more properties */
 	gtk_widget_show_all(vbox);
