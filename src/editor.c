@@ -990,6 +990,7 @@ gboolean editor_save_as(Editor * editor, char const * filename)
 	struct stat st;
 	GtkWidget * dialog;
 	int res;
+	char * p;
 
 	if(stat(filename, &st) == 0)
 	{
@@ -1010,9 +1011,10 @@ gboolean editor_save_as(Editor * editor, char const * filename)
 		if(res == GTK_RESPONSE_NO)
 			return FALSE;
 	}
-	g_free(editor->filename);
-	if((editor->filename = g_strdup(filename)) == NULL)
+	if((p = strdup(filename)) == NULL)
 		return editor_error(editor, _("Allocation error"), FALSE);
+	free(editor->filename);
+	editor->filename = p;
 	if(editor_save(editor) != TRUE)
 		return FALSE;
 	_new_set_title(editor);
