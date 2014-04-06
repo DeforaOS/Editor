@@ -15,6 +15,7 @@ static char const _license[] =
 "You should have received a copy of the GNU General Public License\n"
 "along with this program.  If not, see <http://www.gnu.org/licenses/>.\n";
 /* TODO:
+ * - track the status of the buffer ("modified-changed")
  * - add a "Back" button to the "Find" dialog
  * - add a "Replace" dialog
  * - consider using GtkSourceView also/instead */
