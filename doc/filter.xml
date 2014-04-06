@@ -9,8 +9,8 @@
 	<!ENTITY section   "1">
 	<!ENTITY title     "Editor User Manual">
 	<!ENTITY package   "DeforaOS Editor">
-	<!ENTITY name      "editor">
-	<!ENTITY purpose   "Text editor">
+	<!ENTITY name      "filter">
+	<!ENTITY purpose   "Generic UNIX filtering tool">
 ]>
 <refentry>
 	<refentryinfo>
@@ -27,7 +27,6 @@
 			</author>
 		</authorgroup>
 		<copyright>
-			<year>2013</year>
 			<year>2014</year>
 			<holder>&firstname; &surname; &lt;&email;&gt;</holder>
 		</copyright>
@@ -50,28 +49,21 @@
 	<refsynopsisdiv>
 		<cmdsynopsis>
 			<command>&name;</command>
-			<arg choice="opt"><option>-F</option></arg>
-			<arg choice="opt"><replaceable>filename</replaceable></arg>
+			<arg choice="plain"><replaceable>command</replaceable></arg>
+			<arg choice="opt" rep="repeat"><replaceable>argument</replaceable></arg>
 		</cmdsynopsis>
 	</refsynopsisdiv>
 	<refsect1 id="description">
 		<title>Description</title>
-		<para><command>&name;</command> is a text editor with a graphical user
-			interface. It can nonetheless be used as a filter: reading data from the
-			standard input, and writing it again to the standard output.</para>
+		<para><command>&name;</command> is a generic UNIX filtering tool. It reads
+			data from the standard input, creates a temporary file, executes the desired
+			command (with the absolute filename of the temporary file as the last
+			argument), and writes the contents of the file to the standard output.</para>
 	</refsect1>
 	<refsect1 id="options">
 		<title>Options</title>
-		<para>The filename of a file to edit can be supplied directly on the command
-			line. The following option is supported:</para>
-		<variablelist>
-			<varlistentry>
-				<term><option>-F</option></term>
-				<listitem>
-					<para>Enables filter mode.</para>
-				</listitem>
-			</varlistentry>
-		</variablelist>
+		<para>The name of a command (and optional arguments) must be supplied directly
+			on the command line.</para>
 	</refsect1>
 	<refsect1 id="bugs">
 		<title>Bugs</title>
@@ -82,7 +74,11 @@
 		<title>See also</title>
 		<para>
 			<citerefentry>
-				<refentrytitle>filter</refentrytitle>
+				<refentrytitle>editor</refentrytitle>
+				<manvolnum>1</manvolnum>
+			</citerefentry>,
+			<citerefentry>
+				<refentrytitle>mktemp</refentrytitle>
 				<manvolnum>1</manvolnum>
 			</citerefentry>
 		</para>
