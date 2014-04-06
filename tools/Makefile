@@ -6,9 +6,9 @@ SBINDIR	= $(PREFIX)/sbin
 CC	= cc
 CPPFLAGSF=
 CPPFLAGS=
-CFLAGSF	= -W
+CFLAGSF	= -W `pkg-config --cflags libSystem`
 CFLAGS	= -Wall -g -O2 -pedantic
-LDFLAGSF= -lintl
+LDFLAGSF= `pkg-config --libs libSystem` -lintl
 LDFLAGS	= 
 RM	= rm -f
 LN	= ln -f
@@ -20,7 +20,7 @@ all: $(TARGETS)
 
 filter_OBJS = filter.o
 filter_CFLAGS = $(CPPFLAGSF) $(CPPFLAGS) $(CFLAGSF) $(CFLAGS)
-filter_LDFLAGS = $(LDFLAGSF) $(LDFLAGS) `pkg-config --libs libSystem` ../src/filter.o
+filter_LDFLAGS = $(LDFLAGSF) $(LDFLAGS) ../src/filter.o
 
 filter: $(filter_OBJS)
 	$(CC) -o filter $(filter_OBJS) $(filter_LDFLAGS)

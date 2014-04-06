@@ -84,9 +84,10 @@ static int _editor_filter(EditorPrefs * prefs)
 	fprintf(stderr, "DEBUG: %s() \"%s\"\n", __func__, template);
 #endif
 	/* write to and from the temporary file */
-	if((ret = filter_read(fd, template)) == 0
-			&& (ret = _editor(prefs, template)) == 0)
-		ret = filter_write(template);
+	if((ret = filter_read(fd, template)) != 0
+			|| (ret = _editor(prefs, template)) != 0
+			|| (ret = filter_write(template)) != 0)
+		error_print(PROGNAME);
 	/* remove the temporary file */
 	if(unlink(template) != 0)
 		/* we can otherwise ignore this error */

@@ -21,6 +21,7 @@
 #include <string.h>
 #include <locale.h>
 #include <libintl.h>
+#include <System.h>
 #include "../src/filter.h"
 #include "../config.h"
 #define _(string) gettext(string)
@@ -69,9 +70,12 @@ static int _filter(int argc, char const * argv[])
 	fprintf(stderr, "DEBUG: %s() \"%s\"\n", __func__, template);
 #endif
 	/* write to and from the temporary file */
-	if((ret = filter_read(fd, template)) == 0
-			&& (ret = _filter_exec(template, argc, argv)) == 0)
-		ret = filter_write(template);
+	if((ret = filter_read(fd, template)) != 0)
+		error_print(PROGNAME);
+	else if((ret = _filter_exec(template, argc, argv)) != 0)
+		error_print(PROGNAME);
+	else if((ret = filter_write(template)) != 0)
+		error_print(PROGNAME);
 	/* remove the temporary file */
 	if(unlink(template) != 0)
 		/* we can otherwise ignore this error */
