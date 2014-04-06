@@ -118,6 +118,18 @@ static const DesktopMenu _editor_menu_file[] =
 	{ NULL, NULL, NULL, 0, 0 }
 };
 
+static const DesktopMenu _editor_menu_file_filter[] =
+{
+	{ N_("_Save"), G_CALLBACK(on_file_save), GTK_STOCK_SAVE,
+		GDK_CONTROL_MASK, GDK_KEY_S },
+	{ "", NULL, NULL, 0, 0 },
+	{ N_("_Properties"), G_CALLBACK(on_file_properties),
+		GTK_STOCK_PROPERTIES, GDK_MOD1_MASK, GDK_KEY_Return },
+	{ "", NULL, NULL, 0, 0 },
+	{ N_("_Close"), G_CALLBACK(on_file_close), GTK_STOCK_CLOSE, 0, 0 },
+	{ NULL, NULL, NULL, 0, 0 }
+};
+
 static const DesktopMenu _editor_menu_edit[] =
 {
 	/* FIXME implement undo and redo */
@@ -176,6 +188,15 @@ static const DesktopMenubar _editor_menubar[] =
 	{ N_("_Help"), _editor_menu_help },
 	{ NULL, NULL }
 };
+
+static const DesktopMenubar _editor_menubar_filter[] =
+{
+	{ N_("_File"), _editor_menu_file_filter },
+	{ N_("_Edit"), _editor_menu_edit },
+	{ N_("_Insert"), _editor_menu_insert },
+	{ N_("_Help"), _editor_menu_help },
+	{ NULL, NULL }
+};
 #endif
 
 static DesktopToolbar _editor_toolbar[] =
@@ -186,6 +207,29 @@ static DesktopToolbar _editor_toolbar[] =
 	{ N_("Save"), G_CALLBACK(on_save), GTK_STOCK_SAVE, 0, 0, NULL },
 	{ N_("Save as"), G_CALLBACK(on_save_as), GTK_STOCK_SAVE_AS, 0, 0,
 		NULL },
+	{ "", NULL, NULL, 0, 0, NULL },
+	{ N_("Cut"), G_CALLBACK(on_cut), GTK_STOCK_CUT, 0, 0, NULL },
+	{ N_("Copy"), G_CALLBACK(on_copy), GTK_STOCK_COPY, 0, 0, NULL },
+	{ N_("Paste"), G_CALLBACK(on_paste), GTK_STOCK_PASTE, 0, 0, NULL },
+#ifdef EMBEDDED
+	{ "", NULL, NULL, 0, 0, NULL },
+	{ N_("Find"), G_CALLBACK(on_find), GTK_STOCK_FIND, GDK_CONTROL_MASK,
+		GDK_KEY_F, NULL },
+	{ "", NULL, NULL, 0, 0, NULL },
+	{ N_("Preferences"), G_CALLBACK(on_preferences), GTK_STOCK_PREFERENCES,
+		GDK_CONTROL_MASK, GDK_KEY_P, NULL },
+	{ N_("Properties"), G_CALLBACK(on_properties), GTK_STOCK_PROPERTIES,
+		GDK_MOD1_MASK, GDK_KEY_Return, NULL },
+	{ "", NULL, NULL, 0, 0, NULL },
+	{ N_("Help"), G_CALLBACK(on_help_contents), "help-contents",
+		0, GDK_KEY_F1, NULL },
+#endif
+	{ NULL, NULL, NULL, 0, 0, NULL }
+};
+
+static DesktopToolbar _editor_toolbar_filter[] =
+{
+	{ N_("Save"), G_CALLBACK(on_save), GTK_STOCK_SAVE, 0, 0, NULL },
 	{ "", NULL, NULL, 0, 0, NULL },
 	{ N_("Cut"), G_CALLBACK(on_cut), GTK_STOCK_CUT, 0, 0, NULL },
 	{ N_("Copy"), G_CALLBACK(on_copy), GTK_STOCK_COPY, 0, 0, NULL },
@@ -278,13 +322,17 @@ Editor * editor_new(EditorPrefs * prefs)
 	vbox = gtk_vbox_new(FALSE, 0);
 	/* menubar */
 #ifndef EMBEDDED
-	widget = desktop_menubar_create(_editor_menubar, editor, group);
+	widget = desktop_menubar_create(editor->prefs.filter
+			? _editor_menubar_filter : _editor_menubar, editor,
+			group);
 	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, TRUE, 0);
 #else
 	desktop_accel_create(_editor_accel, editor, group);
 #endif
 	/* toolbar */
-	widget = desktop_toolbar_create(_editor_toolbar, editor, group);
+	widget = desktop_toolbar_create(editor->prefs.filter
+			? _editor_toolbar_filter : _editor_toolbar, editor,
+			group);
 	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, FALSE, 0);
 #if GTK_CHECK_VERSION(2, 18, 0)
 	/* infobar */
