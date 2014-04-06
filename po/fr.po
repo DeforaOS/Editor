@@ -1,11 +1,11 @@
 # $Id$
-# Copyright (c) 2010 Pierre Pronchery <khorben@defora.org>
+# Copyright (c) 2010-2014 Pierre Pronchery <khorben@defora.org>
 # This file is distributed under the same license as the Editor package.
 # Pierre Pronchery <khorben@defora.org>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Editor 0.1.1\n"
+"Project-Id-Version: Editor 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-04-06 05:57+0200\n"
 "PO-Revision-Date: 2010-04-11 12:32+0200\n"
