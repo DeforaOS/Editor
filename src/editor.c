@@ -50,7 +50,7 @@ static char const _license[] =
 struct _Editor
 {
 	EditorPrefs prefs;
-	char * filename;
+	gchar * filename;
 	size_t search;
 
 	Config * config;
@@ -267,6 +267,8 @@ static struct
 
 
 /* prototypes */
+static int _editor_set_filename(Editor * editor, char const * filename);
+
 static char * _editor_config_filename(void);
 static gboolean _editor_find(Editor * editor, char const * text,
 		gboolean sensitive, gboolean wrap);
@@ -882,9 +884,12 @@ int editor_open(Editor * editor, char const * filename)
 		}
 #endif
 	}
-	fclose(fp);
+	if(fclose(fp) != 0)
+		/* XXX ignore this error */
+		editor_error(NULL, filename, 1);
 	gtk_text_buffer_set_modified(tbuf, FALSE);
-	editor->filename = g_strdup(filename); /* XXX may fail */
+	/* XXX may fail */
+	_editor_set_filename(editor, filename);
 	_new_set_title(editor); /* XXX make it a generic private function */
 	/* place the cursor back at the top of the file */
 	gtk_text_buffer_get_start_iter(tbuf, &iter);
@@ -990,7 +995,6 @@ gboolean editor_save_as(Editor * editor, char const * filename)
 	struct stat st;
 	GtkWidget * dialog;
 	int res;
-	char * p;
 
 	if(stat(filename, &st) == 0)
 	{
@@ -1011,11 +1015,8 @@ gboolean editor_save_as(Editor * editor, char const * filename)
 		if(res == GTK_RESPONSE_NO)
 			return FALSE;
 	}
-	if((p = strdup(filename)) == NULL)
-		return editor_error(editor, _("Allocation error"), FALSE);
-	free(editor->filename);
-	editor->filename = p;
-	if(editor_save(editor) != TRUE)
+	if(_editor_set_filename(editor, filename) != 0
+		|| editor_save(editor) != TRUE)
 		return FALSE;
 	_new_set_title(editor);
 	return TRUE;
@@ -1289,6 +1290,29 @@ void editor_unselect_all(Editor * editor)
 
 /* private */
 /* functions */
+/* accessors */
+/* editor_set_filename */
+static int _editor_set_filename(Editor * editor, char const * filename)
+{
+	gchar * p = NULL;
+	char * q;
+
+	if(g_path_is_absolute(filename))
+		p = g_strdup(filename);
+	else if((q = getcwd(NULL, 0)) != NULL)
+	{
+		p = g_build_filename(q, filename, NULL);
+		free(q);
+	}
+	if(p == NULL)
+		return -editor_error(editor, _("Could not update the filename"),
+				1);
+	g_free(editor->filename);
+	editor->filename = p;
+	return 0;
+}
+
+
 /* editor_config_filename */
 static char * _editor_config_filename(void)
 {
