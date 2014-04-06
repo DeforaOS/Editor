@@ -886,6 +886,9 @@ int editor_open(Editor * editor, char const * filename)
 	gtk_text_buffer_set_modified(tbuf, FALSE);
 	editor->filename = g_strdup(filename); /* XXX may fail */
 	_new_set_title(editor); /* XXX make it a generic private function */
+	/* place the cursor back at the top of the file */
+	gtk_text_buffer_get_start_iter(tbuf, &iter);
+	gtk_text_buffer_place_cursor(tbuf, &iter);
 	return 0;
 }
 
