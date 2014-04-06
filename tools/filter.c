@@ -15,6 +15,7 @@
 
 
 
+#include <sys/wait.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -53,6 +54,8 @@ static int _usage(void);
 /* functions */
 /* filter */
 static int _filter_exec(char const * template, int argc, char const ** argv);
+static int _filter_exec_child(char const * template, int argc,
+		char const ** argv);
 
 static int _filter(int argc, char const * argv[])
 {
@@ -70,11 +73,9 @@ static int _filter(int argc, char const * argv[])
 	fprintf(stderr, "DEBUG: %s() \"%s\"\n", __func__, template);
 #endif
 	/* write to and from the temporary file */
-	if((ret = filter_read(fd, template)) != 0)
-		error_print(PROGNAME);
-	else if((ret = _filter_exec(template, argc, argv)) != 0)
-		error_print(PROGNAME);
-	else if((ret = filter_write(template)) != 0)
+	if((ret = filter_read(fd, template)) != 0
+			|| (ret = _filter_exec(template, argc, argv)) != 0
+			|| (ret = filter_write(template)) != 0)
 		error_print(PROGNAME);
 	/* remove the temporary file */
 	if(unlink(template) != 0)
@@ -84,6 +85,36 @@ static int _filter(int argc, char const * argv[])
 }
 
 static int _filter_exec(char const * template, int argc, char const ** argv)
+{
+	int ret = 0;
+	pid_t pid;
+	int status;
+
+	if((pid = fork()) == -1)
+		return -_error("fork", 1);
+	if(pid == 0)
+	{
+		if(_filter_exec_child(template, argc, argv) != 0)
+			error_print(PROGNAME);
+		_exit(2);
+	}
+	fclose(stdin);
+	for(; waitpid(pid, &status, 0) != -1;)
+		if(WIFEXITED(status))
+		{
+			if(WEXITSTATUS(status) != 0)
+				ret = -error_set_code(1, "%s: %s%u", argv[0],
+						"Exited with error code ",
+						WEXITSTATUS(status));
+			break;
+		}
+		else if(WIFSIGNALED(status))
+			break;
+	return ret;
+}
+
+static int _filter_exec_child(char const * template, int argc,
+		char const ** argv)
 {
 	int ret = 0;
 	char ** args;
@@ -98,7 +129,6 @@ static int _filter_exec(char const * template, int argc, char const ** argv)
 	for(i = 0; ret == 0 && i <= argc; i++)
 		if(args[i] == NULL)
 			ret = -_error("strdup", 1);
-	/* FIXME fork() first */
 	if(ret == 0 && execvp(args[0], args) != 0)
 		ret = -_error(args[0], 1);
 	for(i = 0; i <= argc; i++)
