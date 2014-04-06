@@ -1192,7 +1192,8 @@ static GtkWidget * _properties_widget(Editor * editor, GtkSizeGroup * group,
 void editor_show_properties(Editor * editor, gboolean show)
 {
 	GtkWidget * dialog;
-	GtkSizeGroup * group;
+	GtkSizeGroup * hgroup;
+	GtkSizeGroup * vgroup;
 	GtkWidget * vbox;
 	GtkWidget * widget;
 	GtkTextBuffer * tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(
@@ -1213,7 +1214,8 @@ void editor_show_properties(Editor * editor, gboolean show)
 			GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 			GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL);
 	gtk_window_set_default_size(GTK_WINDOW(dialog), 300, 200);
-	group = gtk_size_group_new(GTK_SIZE_GROUP_HORIZONTAL);
+	hgroup = gtk_size_group_new(GTK_SIZE_GROUP_HORIZONTAL);
+	vgroup = gtk_size_group_new(GTK_SIZE_GROUP_VERTICAL);
 #if GTK_CHECK_VERSION(2, 14, 0)
 	vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 #else
@@ -1230,15 +1232,24 @@ void editor_show_properties(Editor * editor, gboolean show)
 	widget = gtk_entry_new();
 	gtk_entry_set_editable(GTK_ENTRY(widget), FALSE);
 	gtk_entry_set_text(GTK_ENTRY(widget), q);
+	gtk_size_group_add_widget(vgroup, widget);
 	g_free(p);
-	widget = _properties_widget(editor, group, _("Filename:"), widget);
-	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, TRUE, 0);
+	widget = _properties_widget(editor, hgroup, _("Filename:"), widget);
+	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, FALSE, 0);
 	/* characters */
 	snprintf(buf, sizeof(buf), "%u", gtk_text_buffer_get_char_count(tbuf));
 	widget = gtk_label_new(buf);
 	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
-	widget = _properties_widget(editor, group, _("Characters:"), widget);
-	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, TRUE, 0);
+	gtk_size_group_add_widget(vgroup, widget);
+	widget = _properties_widget(editor, hgroup, _("Characters:"), widget);
+	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, FALSE, 0);
+	/* lines */
+	snprintf(buf, sizeof(buf), "%u", gtk_text_buffer_get_line_count(tbuf));
+	widget = gtk_label_new(buf);
+	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
+	gtk_size_group_add_widget(vgroup, widget);
+	widget = _properties_widget(editor, hgroup, _("Lines:"), widget);
+	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, FALSE, 0);
 	/* FIXME implement more properties */
 	gtk_widget_show_all(vbox);
 	gtk_dialog_run(GTK_DIALOG(dialog));
