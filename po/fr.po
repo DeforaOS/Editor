@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Editor 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-06 05:57+0200\n"
+"POT-Creation-Date: 2014-04-06 15:57+0200\n"
 "PO-Revision-Date: 2010-04-11 12:32+0200\n"
 "Last-Translator: Calimero <calimeroteknik@free.fr>\n"
 "Language-Team: French\n"
@@ -164,54 +164,54 @@ msgstr "mots"
 msgid "words then characters"
 msgstr "mots puis caractères"
 
-#: ../src/editor.c:380
+#: ../src/editor.c:388
 msgid "Find:"
 msgstr "Chercher :"
 
-#: ../src/editor.c:401
+#: ../src/editor.c:409
 msgid "Case-sensitive"
 msgstr "Sensible à la casse"
 
-#: ../src/editor.c:403
+#: ../src/editor.c:411
 msgid "Wrap"
 msgstr "Boucler"
 
-#: ../src/editor.c:423 ../src/editor.c:1494
+#: ../src/editor.c:431 ../src/editor.c:1514
 msgid "Ready"
 msgstr "Prêt"
 
-#: ../src/editor.c:439
+#: ../src/editor.c:447
 msgid "Text editor - "
 msgstr "Éditeur de texte - "
 
-#: ../src/editor.c:440
+#: ../src/editor.c:448
 msgid "(Untitled)"
 msgstr "(Sans titre)"
 
-#: ../src/editor.c:551
+#: ../src/editor.c:559
 msgid "Text editor for the DeforaOS desktop"
 msgstr "Éditeur de texte pour l'environnement DeforaOS"
 
-#: ../src/editor.c:558
+#: ../src/editor.c:566
 msgid "translator-credits"
 msgstr ""
 "Calimero <calimeroteknik@free.fr>\n"
 "Pierre Pronchery <khorben@defora.org>"
 
-#: ../src/editor.c:599
+#: ../src/editor.c:607
 msgid "Could not save the configuration"
 msgstr "Erreur lors de la sauvegarde de la configuration"
 
-#: ../src/editor.c:617 ../src/editor.c:626 ../src/editor.c:1015
-#: ../src/editor.c:1021
+#: ../src/editor.c:625 ../src/editor.c:634 ../src/editor.c:1023
+#: ../src/editor.c:1029
 msgid "Question"
 msgstr "Question"
 
-#: ../src/editor.c:652 ../src/editor.c:656
+#: ../src/editor.c:660 ../src/editor.c:664
 msgid "Error"
 msgstr "Erreur"
 
-#: ../src/editor.c:686 ../src/editor.c:840
+#: ../src/editor.c:694 ../src/editor.c:848
 msgid ""
 "There are unsaved changes.\n"
 "Discard or save them?"
@@ -219,80 +219,80 @@ msgstr ""
 "Il y a des changements non enregistrés.\n"
 "Abandonner ou enregistrer ?"
 
-#: ../src/editor.c:798
+#: ../src/editor.c:806
 msgid "Insert file..."
 msgstr "Insérer un fichier..."
 
-#: ../src/editor.c:804 ../src/editor.c:924
+#: ../src/editor.c:812 ../src/editor.c:932
 msgid "Text files"
 msgstr "Fichiers texte"
 
-#: ../src/editor.c:808 ../src/editor.c:928
+#: ../src/editor.c:816 ../src/editor.c:936
 msgid "All files"
 msgstr "Tous les fichiers"
 
-#: ../src/editor.c:846
+#: ../src/editor.c:854
 msgid "Discard"
 msgstr "Abandonner"
 
-#: ../src/editor.c:918
+#: ../src/editor.c:926
 msgid "Open file..."
 msgstr "Ouvrir un fichier..."
 
-#: ../src/editor.c:987 ../src/editor.c:993
+#: ../src/editor.c:995 ../src/editor.c:1001
 msgid "Partial write"
 msgstr "Écriture partielle"
 
-#: ../src/editor.c:1020
+#: ../src/editor.c:1028
 msgid "This file already exists. Overwrite?"
 msgstr "Le fichier existe déjà. L'écraser ?"
 
-#: ../src/editor.c:1042
+#: ../src/editor.c:1050
 msgid "Save as..."
 msgstr "Enregistrer sous..."
 
-#: ../src/editor.c:1097
+#: ../src/editor.c:1105
 msgid "Text editor preferences"
 msgstr "Préférences de l'éditeur de texte"
 
-#: ../src/editor.c:1114
+#: ../src/editor.c:1126
 msgid "Font:"
 msgstr "Police :"
 
-#: ../src/editor.c:1124
+#: ../src/editor.c:1140
 msgid "Wrap mode:"
 msgstr "Retour à la ligne :"
 
-#: ../src/editor.c:1221
+#: ../src/editor.c:1237
 #, c-format
 msgid "Properties of %s"
 msgstr "Propriétés de %s"
 
-#: ../src/editor.c:1247
+#: ../src/editor.c:1263
 msgid "Filename:"
 msgstr "Nom du fichier :"
 
-#: ../src/editor.c:1254
+#: ../src/editor.c:1270
 msgid "Characters:"
 msgstr "Caractères :"
 
-#: ../src/editor.c:1261
+#: ../src/editor.c:1277
 msgid "Lines:"
 msgstr "Lignes :"
 
-#: ../src/editor.c:1317
+#: ../src/editor.c:1337
 msgid "Could not update the filename"
 msgstr "Erreur lors de la mise à jour du nom de fichier"
 
-#: ../src/editor.c:1469
+#: ../src/editor.c:1489
 msgid "Text not found"
 msgstr "Texte non trouvé"
 
-#: ../src/editor.c:1490
+#: ../src/editor.c:1510
 msgid "Unsaved changes"
 msgstr "Changements non sauvegardés"
 
-#: ../src/editor.c:1492
+#: ../src/editor.c:1512
 msgid "Saved"
 msgstr "Sauvegardé"
 
