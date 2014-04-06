@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Editor 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-29 22:28+0100\n"
+"POT-Creation-Date: 2014-04-06 05:41+0200\n"
 "PO-Revision-Date: 2010-04-07 22:05+0200\n"
 "Last-Translator: Pierre Pronchery <khorben@defora.org>\n"
 "Language-Team: German\n"
@@ -16,262 +16,277 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/editor.c:103
+#: ../src/editor.c:108
 msgid "_New"
 msgstr "_Neu"
 
-#: ../src/editor.c:105
+#: ../src/editor.c:110
 msgid "_Open"
 msgstr "_Offnen"
 
-#: ../src/editor.c:108
+#: ../src/editor.c:113 ../src/editor.c:127
 msgid "_Save"
 msgstr "_Speichern"
 
-#: ../src/editor.c:110
+#: ../src/editor.c:115
 msgid "_Save as..."
 msgstr "Speichern _unter..."
 
-#: ../src/editor.c:113
+#: ../src/editor.c:118 ../src/editor.c:130
 msgid "_Properties"
 msgstr "_Einstellungen"
 
-#: ../src/editor.c:116
+#: ../src/editor.c:121 ../src/editor.c:133
 msgid "_Close"
 msgstr "_Schließen"
 
-#: ../src/editor.c:123
+#: ../src/editor.c:140
 msgid "_Undo"
 msgstr "_Rückgängig"
 
-#: ../src/editor.c:125
+#: ../src/editor.c:142
 msgid "_Redo"
 msgstr "_Wiederholen"
 
-#: ../src/editor.c:127
+#: ../src/editor.c:144
 msgid "Cu_t"
 msgstr "_Ausschneiden"
 
-#: ../src/editor.c:129
+#: ../src/editor.c:146
 msgid "_Copy"
 msgstr "_Kopieren"
 
-#: ../src/editor.c:131
+#: ../src/editor.c:148
 msgid "_Paste"
 msgstr "E_infügen"
 
-#: ../src/editor.c:134
+#: ../src/editor.c:151
 msgid "Select _all"
 msgstr "A_lles markieren"
 
-#: ../src/editor.c:141
+#: ../src/editor.c:158
 msgid "_Unselect all"
 msgstr "_Nichts markieren"
 
-#: ../src/editor.c:143
+#: ../src/editor.c:160
 msgid "_Find"
 msgstr "_Suchen"
 
-#: ../src/editor.c:146
+#: ../src/editor.c:163
 msgid "_Preferences"
 msgstr "_Einstellungen"
 
-#: ../src/editor.c:153
+#: ../src/editor.c:170
 msgid "_File..."
 msgstr "_Datei..."
 
-#: ../src/editor.c:159
+#: ../src/editor.c:176
 msgid "_Contents"
 msgstr ""
 
-#: ../src/editor.c:161
+#: ../src/editor.c:178
 msgid "_About"
 msgstr "_Info"
 
-#: ../src/editor.c:172
+#: ../src/editor.c:189 ../src/editor.c:198
 msgid "_File"
 msgstr "_Datei"
 
-#: ../src/editor.c:173
+#: ../src/editor.c:190 ../src/editor.c:199
 msgid "_Edit"
 msgstr "_Bearbeitung"
 
-#: ../src/editor.c:174
+#: ../src/editor.c:191 ../src/editor.c:200
 msgid "_Insert"
 msgstr "_Einfügen"
 
-#: ../src/editor.c:175
+#: ../src/editor.c:192 ../src/editor.c:201
 msgid "_Help"
 msgstr "_Hilfe"
 
-#: ../src/editor.c:182
+#: ../src/editor.c:208
 msgid "New"
 msgstr "Neue"
 
-#: ../src/editor.c:183
+#: ../src/editor.c:209
 msgid "Open"
 msgstr "Offnen"
 
-#: ../src/editor.c:185
+#: ../src/editor.c:211 ../src/editor.c:236
 msgid "Save"
 msgstr "Speichern"
 
-#: ../src/editor.c:186
+#: ../src/editor.c:212
 msgid "Save as"
 msgstr "Speichern unter"
 
-#: ../src/editor.c:189
+#: ../src/editor.c:215 ../src/editor.c:238
 msgid "Cut"
 msgstr "Ausschneiden"
 
-#: ../src/editor.c:190
+#: ../src/editor.c:216 ../src/editor.c:239
 msgid "Copy"
 msgstr "Kopieren"
 
-#: ../src/editor.c:191
+#: ../src/editor.c:217 ../src/editor.c:240
 msgid "Paste"
 msgstr "Einfügen"
 
-#: ../src/editor.c:194
+#: ../src/editor.c:220 ../src/editor.c:243
 msgid "Find"
 msgstr "Suchen"
 
-#: ../src/editor.c:197
+#: ../src/editor.c:223 ../src/editor.c:246
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: ../src/editor.c:199
+#: ../src/editor.c:225 ../src/editor.c:248
 msgid "Properties"
 msgstr ""
 
-#: ../src/editor.c:202
+#: ../src/editor.c:228 ../src/editor.c:251
 msgid "Help"
 msgstr "Hilfe"
 
-#: ../src/editor.c:214
+#: ../src/editor.c:263
 msgid "none"
 msgstr "kein"
 
-#: ../src/editor.c:215
+#: ../src/editor.c:264
 msgid "characters"
 msgstr ""
 
-#: ../src/editor.c:216
+#: ../src/editor.c:265
 msgid "words"
 msgstr "wörte"
 
-#: ../src/editor.c:217
+#: ../src/editor.c:266
 msgid "words then characters"
 msgstr ""
 
-#: ../src/editor.c:314
+#: ../src/editor.c:374
 msgid "Find:"
 msgstr "Suchen:"
 
-#: ../src/editor.c:335
+#: ../src/editor.c:395
 msgid "Case-sensitive"
 msgstr ""
 
-#: ../src/editor.c:337
+#: ../src/editor.c:397
 msgid "Wrap"
 msgstr ""
 
-#: ../src/editor.c:371
+#: ../src/editor.c:431
 msgid "Text editor - "
 msgstr ""
 
-#: ../src/editor.c:372
+#: ../src/editor.c:432
 msgid "(Untitled)"
 msgstr "(Unbenannt)"
 
-#: ../src/editor.c:481
+#: ../src/editor.c:543
 msgid "Text editor for the DeforaOS desktop"
 msgstr ""
 
-#: ../src/editor.c:488
+#: ../src/editor.c:550
 msgid "translator-credits"
 msgstr "Pierre Pronchery <khorben@defora.org>"
 
-#: ../src/editor.c:529
-msgid "Could not save configuration"
+#: ../src/editor.c:591
+msgid "Could not save the configuration"
 msgstr ""
 
-#: ../src/editor.c:547 ../src/editor.c:556 ../src/editor.c:925
-#: ../src/editor.c:930
+#: ../src/editor.c:609 ../src/editor.c:618 ../src/editor.c:1007
+#: ../src/editor.c:1013
 msgid "Question"
 msgstr "Frage"
 
-#: ../src/editor.c:576 ../src/editor.c:580
+#: ../src/editor.c:644 ../src/editor.c:648
 msgid "Error"
 msgstr "Fehler"
 
-#: ../src/editor.c:603 ../src/editor.c:756
+#: ../src/editor.c:678 ../src/editor.c:832
 msgid ""
 "There are unsaved changes.\n"
 "Discard or save them?"
 msgstr ""
 
-#: ../src/editor.c:714
+#: ../src/editor.c:790
 msgid "Insert file..."
 msgstr "Datei einfügen..."
 
-#: ../src/editor.c:720 ../src/editor.c:835
+#: ../src/editor.c:796 ../src/editor.c:916
 msgid "Text files"
 msgstr "Text Dateien"
 
-#: ../src/editor.c:724 ../src/editor.c:839
+#: ../src/editor.c:800 ../src/editor.c:920
 msgid "All files"
 msgstr "Alle Dateien"
 
-#: ../src/editor.c:762
+#: ../src/editor.c:838
 msgid "Discard"
 msgstr "Verwerfen"
 
-#: ../src/editor.c:829
+#: ../src/editor.c:910
 msgid "Open file..."
 msgstr "Offnen..."
 
-#: ../src/editor.c:897 ../src/editor.c:903
+#: ../src/editor.c:979 ../src/editor.c:985
 msgid "Partial write"
 msgstr ""
 
-#: ../src/editor.c:929
+#: ../src/editor.c:1012
 msgid "This file already exists. Overwrite?"
 msgstr ""
 
-#: ../src/editor.c:938
-msgid "Allocation error"
-msgstr ""
-
-#: ../src/editor.c:953
+#: ../src/editor.c:1034
 msgid "Save as..."
 msgstr "Speichern unter..."
 
-#: ../src/editor.c:1010
+#: ../src/editor.c:1089
 msgid "Text editor preferences"
 msgstr "Text Editor Einstellungen"
 
-#: ../src/editor.c:1027
+#: ../src/editor.c:1106
 msgid "Font:"
 msgstr ""
 
-#: ../src/editor.c:1037
+#: ../src/editor.c:1116
 msgid "Wrap mode:"
 msgstr ""
 
-#: ../src/editor.c:1128
+#: ../src/editor.c:1213
 #, c-format
 msgid "Properties of %s"
 msgstr ""
 
-#: ../src/editor.c:1148
+#: ../src/editor.c:1239
 msgid "Filename:"
 msgstr ""
 
-#: ../src/editor.c:1322
+#: ../src/editor.c:1246
+msgid "Characters:"
+msgstr ""
+
+#: ../src/editor.c:1253
+msgid "Lines:"
+msgstr ""
+
+#: ../src/editor.c:1309
+msgid "Could not update the filename"
+msgstr ""
+
+#: ../src/editor.c:1448
 msgid "Text not found"
 msgstr ""
 
-#: ../src/main.c:75
-msgid "Usage: editor [filename]\n"
+#: ../src/main.c:111 ../tools/filter.c:157
+#, c-format
+msgid ""
+"Usage: %s [-F][filename]\n"
+"  -F\tBehave like a filter\n"
+msgstr ""
+
+#: ../tools/filter.c:109
+msgid "Exited with error code "
 msgstr ""
