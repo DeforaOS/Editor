@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Editor 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-06 05:41+0200\n"
+"POT-Creation-Date: 2014-04-06 05:57+0200\n"
 "PO-Revision-Date: 2010-04-07 22:07+0200\n"
 "Last-Translator: Pierre Pronchery <khorben@defora.org>\n"
 "Language-Team: Spanish\n"
@@ -164,120 +164,132 @@ msgstr ""
 msgid "words then characters"
 msgstr ""
 
-#: ../src/editor.c:374
+#: ../src/editor.c:380
 msgid "Find:"
 msgstr "Buscar:"
 
-#: ../src/editor.c:395
+#: ../src/editor.c:401
 msgid "Case-sensitive"
 msgstr ""
 
-#: ../src/editor.c:397
+#: ../src/editor.c:403
 msgid "Wrap"
 msgstr ""
 
-#: ../src/editor.c:431
+#: ../src/editor.c:423 ../src/editor.c:1494
+msgid "Ready"
+msgstr ""
+
+#: ../src/editor.c:439
 msgid "Text editor - "
 msgstr ""
 
-#: ../src/editor.c:432
+#: ../src/editor.c:440
 msgid "(Untitled)"
 msgstr ""
 
-#: ../src/editor.c:543
+#: ../src/editor.c:551
 msgid "Text editor for the DeforaOS desktop"
 msgstr ""
 
-#: ../src/editor.c:550
+#: ../src/editor.c:558
 msgid "translator-credits"
 msgstr ""
 
-#: ../src/editor.c:591
+#: ../src/editor.c:599
 msgid "Could not save the configuration"
 msgstr ""
 
-#: ../src/editor.c:609 ../src/editor.c:618 ../src/editor.c:1007
-#: ../src/editor.c:1013
+#: ../src/editor.c:617 ../src/editor.c:626 ../src/editor.c:1015
+#: ../src/editor.c:1021
 msgid "Question"
 msgstr ""
 
-#: ../src/editor.c:644 ../src/editor.c:648
+#: ../src/editor.c:652 ../src/editor.c:656
 msgid "Error"
 msgstr ""
 
-#: ../src/editor.c:678 ../src/editor.c:832
+#: ../src/editor.c:686 ../src/editor.c:840
 msgid ""
 "There are unsaved changes.\n"
 "Discard or save them?"
 msgstr ""
 
-#: ../src/editor.c:790
+#: ../src/editor.c:798
 msgid "Insert file..."
 msgstr ""
 
-#: ../src/editor.c:796 ../src/editor.c:916
+#: ../src/editor.c:804 ../src/editor.c:924
 msgid "Text files"
 msgstr ""
 
-#: ../src/editor.c:800 ../src/editor.c:920
+#: ../src/editor.c:808 ../src/editor.c:928
 msgid "All files"
 msgstr ""
 
-#: ../src/editor.c:838
+#: ../src/editor.c:846
 msgid "Discard"
 msgstr "Descartar"
 
-#: ../src/editor.c:910
+#: ../src/editor.c:918
 msgid "Open file..."
 msgstr ""
 
-#: ../src/editor.c:979 ../src/editor.c:985
+#: ../src/editor.c:987 ../src/editor.c:993
 msgid "Partial write"
 msgstr ""
 
-#: ../src/editor.c:1012
+#: ../src/editor.c:1020
 msgid "This file already exists. Overwrite?"
 msgstr ""
 
-#: ../src/editor.c:1034
+#: ../src/editor.c:1042
 msgid "Save as..."
 msgstr "Guardar como..."
 
-#: ../src/editor.c:1089
+#: ../src/editor.c:1097
 msgid "Text editor preferences"
 msgstr ""
 
-#: ../src/editor.c:1106
+#: ../src/editor.c:1114
 msgid "Font:"
 msgstr ""
 
-#: ../src/editor.c:1116
+#: ../src/editor.c:1124
 msgid "Wrap mode:"
 msgstr ""
 
-#: ../src/editor.c:1213
+#: ../src/editor.c:1221
 #, c-format
 msgid "Properties of %s"
 msgstr ""
 
-#: ../src/editor.c:1239
+#: ../src/editor.c:1247
 msgid "Filename:"
 msgstr ""
 
-#: ../src/editor.c:1246
+#: ../src/editor.c:1254
 msgid "Characters:"
 msgstr ""
 
-#: ../src/editor.c:1253
+#: ../src/editor.c:1261
 msgid "Lines:"
 msgstr ""
 
-#: ../src/editor.c:1309
+#: ../src/editor.c:1317
 msgid "Could not update the filename"
 msgstr ""
 
-#: ../src/editor.c:1448
+#: ../src/editor.c:1469
 msgid "Text not found"
+msgstr ""
+
+#: ../src/editor.c:1490
+msgid "Unsaved changes"
+msgstr ""
+
+#: ../src/editor.c:1492
+msgid "Saved"
 msgstr ""
 
 #: ../src/main.c:111 ../tools/filter.c:157
