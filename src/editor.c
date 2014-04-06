@@ -585,7 +585,7 @@ int editor_config_save(Editor * editor)
 	if((filename = _editor_config_filename()) == NULL)
 		return -1;
 	if((ret = config_save(editor->config, filename)) != 0)
-		editor_error(editor, _("Could not save configuration"), 1);
+		editor_error(editor, _("Could not save the configuration"), 1);
 	free(filename);
 	return ret;
 }
