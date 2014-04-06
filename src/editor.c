@@ -1047,7 +1047,6 @@ gboolean editor_save_as_dialog(Editor * editor)
 /* editor_select_all */
 void editor_select_all(Editor * editor)
 {
-#if GTK_CHECK_VERSION(2, 4, 0)
 	GtkTextBuffer * tbuf;
 	GtkTextIter start;
 	GtkTextIter end;
@@ -1056,7 +1055,6 @@ void editor_select_all(Editor * editor)
 	gtk_text_buffer_get_start_iter(tbuf, &start);
 	gtk_text_buffer_get_end_iter(tbuf, &end);
 	gtk_text_buffer_select_range(tbuf, &start, &end);
-#endif
 }
 
 
@@ -1276,7 +1274,6 @@ static GtkWidget * _properties_widget(Editor * editor, GtkSizeGroup * group,
 /* editor_unselect_all */
 void editor_unselect_all(Editor * editor)
 {
-#if GTK_CHECK_VERSION(2, 4, 0)
 	GtkTextBuffer * tbuf;
 	GtkTextMark * mark;
 	GtkTextIter iter;
@@ -1285,7 +1282,6 @@ void editor_unselect_all(Editor * editor)
 	mark = gtk_text_buffer_get_mark(tbuf, "insert");
 	gtk_text_buffer_get_iter_at_mark(tbuf, &iter, mark);
 	gtk_text_buffer_select_range(tbuf, &iter, &iter);
-#endif
 }
 
 
