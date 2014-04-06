@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2006-2014 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2014 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS Desktop Editor */
 /* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,14 +21,13 @@
 #include <string.h>
 #include <locale.h>
 #include <libintl.h>
-#include "filter.h"
-#include "editor.h"
+#include "../src/filter.h"
 #include "../config.h"
 #define _(string) gettext(string)
 
 /* constants */
 #ifndef PROGNAME
-# define PROGNAME	"editor"
+# define PROGNAME	"filter"
 #endif
 #ifndef PREFIX
 # define PREFIX		"/usr/local"
@@ -41,34 +40,20 @@
 #endif
 
 
-/* Editor */
+/* filter */
 /* private */
 /* prototypes */
-static int _editor(EditorPrefs * prefs, char const * filename);
-static int _editor_filter(EditorPrefs * prefs);
+static int _filter(int argc, char const * argv[]);
 
 static int _error(char const * message, int ret);
 static int _usage(void);
 
 
 /* functions */
-/* editor */
-static int _editor(EditorPrefs * prefs, char const * filename)
-{
-	Editor * editor;
+/* filter */
+static int _filter_exec(char const * template, int argc, char const ** argv);
 
-	if((editor = editor_new(prefs)) == NULL)
-		return -1;
-	if(filename != NULL)
-		editor_open(editor, filename);
-	gtk_main();
-	editor_delete(editor);
-	return 0;
-}
-
-
-/* editor_filter */
-static int _editor_filter(EditorPrefs * prefs)
+static int _filter(int argc, char const * argv[])
 {
 	int ret = 0;
 	char template[] = "/tmp/" PROGNAME ".XXXXXX";
@@ -85,12 +70,36 @@ static int _editor_filter(EditorPrefs * prefs)
 #endif
 	/* write to and from the temporary file */
 	if((ret = filter_read(fd, template)) == 0
-			&& (ret = _editor(prefs, template)) == 0)
+			&& (ret = _filter_exec(template, argc, argv)) == 0)
 		ret = filter_write(template);
 	/* remove the temporary file */
 	if(unlink(template) != 0)
 		/* we can otherwise ignore this error */
 		_error(template, 1);
+	return ret;
+}
+
+static int _filter_exec(char const * template, int argc, char const ** argv)
+{
+	int ret = 0;
+	char ** args;
+	int i;
+
+	if((args = malloc(sizeof(*args) * (argc + 1))) == NULL)
+		return -_error("malloc", 1);
+	for(i = 0; i < argc; i++)
+		args[i] = strdup(argv[i]);
+	args[i] = strdup(template);
+	/* check for errors */
+	for(i = 0; ret == 0 && i <= argc; i++)
+		if(args[i] == NULL)
+			ret = -_error("strdup", 1);
+	/* FIXME fork() first */
+	if(ret == 0 && execvp(args[0], args) != 0)
+		ret = -_error(args[0], 1);
+	for(i = 0; i <= argc; i++)
+		free(args[i]);
+	free(args);
 	return ret;
 }
 
@@ -116,31 +125,20 @@ static int _usage(void)
 /* main */
 int main(int argc, char * argv[])
 {
-	EditorPrefs prefs;
 	int o;
 
-	memset(&prefs, 0, sizeof(prefs));
 	if(setlocale(LC_ALL, "") == NULL)
 		_error("setlocale", 1);
 	bindtextdomain(PACKAGE, LOCALEDIR);
 	textdomain(PACKAGE);
-	gtk_init(&argc, &argv);
-	while((o = getopt(argc, argv, "F")) != -1)
+	while((o = getopt(argc, argv, "")) != -1)
 		switch(o)
 		{
-			case 'F':
-				prefs.filter = 1;
-				break;
 			default:
 				return _usage();
 		}
-	if(prefs.filter != 0 && optind == argc)
-		return (_editor_filter(&prefs) == 0) ? 0 : 2;
-	/* ignore filter mode if a filename was supplied */
-	prefs.filter = 0;
-	if(optind != argc && optind + 1 != argc)
+	if(argc - optind == 0)
 		return _usage();
-	if(argc - optind == 1)
-		return (_editor(&prefs, argv[optind]) == 0) ? 0 : 2;
-	return (_editor(&prefs, NULL) == 0) ? 0 : 2;
+	return (_filter(argc - optind, (const char **)&argv[optind]) == 0)
+		? 0 : 2;
 }

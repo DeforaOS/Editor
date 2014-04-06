@@ -39,6 +39,9 @@ static char const _license[] =
 /* Editor */
 /* private */
 /* constants */
+#ifndef PROGNAME
+# define PROGNAME		"editor"
+#endif
 #define EDITOR_CONFIG_FILE	".editor"
 #define EDITOR_DEFAULT_FONT	"Monospace 9"
 
@@ -617,14 +620,20 @@ int editor_confirm(Editor * editor, char const * message, ...)
 
 
 /* editor_error */
+static int _error_text(char const * message, int ret);
+
 int editor_error(Editor * editor, char const * message, int ret)
 {
 #if GTK_CHECK_VERSION(2, 18, 0)
+	if(editor == NULL)
+		return _error_text(message, ret);
 	gtk_label_set_text(GTK_LABEL(editor->infobar_label), message);
 	gtk_widget_show(editor->infobar);
 #else
 	GtkWidget * dialog;
 
+	if(editor == NULL)
+		return _error_text(message, ret);
 	dialog = gtk_message_dialog_new(GTK_WINDOW(editor->window),
 			GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,
 			GTK_BUTTONS_CLOSE,
@@ -638,6 +647,12 @@ int editor_error(Editor * editor, char const * message, int ret)
 				gtk_widget_destroy), NULL);
 	gtk_widget_show(dialog);
 #endif
+	return ret;
+}
+
+static int _error_text(char const * message, int ret)
+{
+	fprintf(stderr, "%s: %s\n", PROGNAME, message);
 	return ret;
 }
 

@@ -1,6 +1,6 @@
 PACKAGE	= Editor
 VERSION	= 0.2.1
-SUBDIRS	= data doc po src
+SUBDIRS	= data doc po src tools
 RM	= rm -f
 LN	= ln -f
 TAR	= tar -czvf
@@ -38,11 +38,16 @@ dist:
 		$(PACKAGE)-$(VERSION)/po/project.conf \
 		$(PACKAGE)-$(VERSION)/src/callbacks.c \
 		$(PACKAGE)-$(VERSION)/src/editor.c \
+		$(PACKAGE)-$(VERSION)/src/filter.c \
 		$(PACKAGE)-$(VERSION)/src/main.c \
 		$(PACKAGE)-$(VERSION)/src/Makefile \
 		$(PACKAGE)-$(VERSION)/src/callbacks.h \
 		$(PACKAGE)-$(VERSION)/src/editor.h \
+		$(PACKAGE)-$(VERSION)/src/filter.h \
 		$(PACKAGE)-$(VERSION)/src/project.conf \
+		$(PACKAGE)-$(VERSION)/tools/filter.c \
+		$(PACKAGE)-$(VERSION)/tools/Makefile \
+		$(PACKAGE)-$(VERSION)/tools/project.conf \
 		$(PACKAGE)-$(VERSION)/Makefile \
 		$(PACKAGE)-$(VERSION)/COPYING \
 		$(PACKAGE)-$(VERSION)/config.h \
