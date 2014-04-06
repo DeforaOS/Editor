@@ -15,7 +15,6 @@ static char const _license[] =
 "You should have received a copy of the GNU General Public License\n"
 "along with this program.  If not, see <http://www.gnu.org/licenses/>.\n";
 /* TODO:
- * - track the status of the buffer ("modified-changed")
  * - add a "Back" button to the "Find" dialog
  * - add a "Replace" dialog
  * - consider using GtkSourceView also/instead */
@@ -61,6 +60,7 @@ struct _Editor
 	PangoFontDescription * bold;
 	GtkWidget * view;
 	GtkWidget * statusbar;
+	guint statusbar_id;
 #if GTK_CHECK_VERSION(2, 18, 0)
 	/* infobar */
 	GtkWidget * infobar;
@@ -269,6 +269,7 @@ static struct
 
 /* prototypes */
 static int _editor_set_filename(Editor * editor, char const * filename);
+static void _editor_set_status(Editor * editor, char const * status);
 
 static char * _editor_config_filename(void);
 static gboolean _editor_find(Editor * editor, char const * text,
@@ -280,6 +281,7 @@ static void _editor_on_find_clear(gpointer data);
 #endif
 static void _editor_on_find_clicked(gpointer data);
 static void _editor_on_find_hide(gpointer data);
+static void _editor_on_modified(GtkTextBuffer * tbuf, gpointer data);
 
 
 /* public */
@@ -294,6 +296,7 @@ Editor * editor_new(EditorPrefs * prefs)
 	GtkWidget * vbox;
 	GtkWidget * hbox;
 	GtkWidget * widget;
+	GtkTextBuffer * tbuf;
 
 	if((editor = object_new(sizeof(*editor))) == NULL)
 		return NULL;
@@ -363,6 +366,9 @@ Editor * editor_new(EditorPrefs * prefs)
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(widget),
 			GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	editor->view = gtk_text_view_new();
+	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
+	g_signal_connect(tbuf, "modified-changed", G_CALLBACK(
+				_editor_on_modified), editor);
 	editor_set_font(editor, editor_get_font(editor));
 	editor_set_wrap_mode(editor, editor_get_wrap_mode(editor));
 	gtk_container_add(GTK_CONTAINER(widget), editor->view);
@@ -413,6 +419,8 @@ Editor * editor_new(EditorPrefs * prefs)
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
 	/* statusbar */
 	editor->statusbar = gtk_statusbar_new();
+	editor->statusbar_id = 0;
+	_editor_set_status(editor, _("Ready"));
 	gtk_box_pack_end(GTK_BOX(vbox), editor->statusbar, FALSE, TRUE, 0);
 	/* preferences */
 	editor->pr_window = NULL;
@@ -1314,6 +1322,19 @@ static int _editor_set_filename(Editor * editor, char const * filename)
 }
 
 
+/* editor_set_status */
+static void _editor_set_status(Editor * editor, char const * status)
+{
+	GtkStatusbar * sb = GTK_STATUSBAR(editor->statusbar);
+
+	if(editor->statusbar_id != 0)
+		gtk_statusbar_remove(sb, gtk_statusbar_get_context_id(sb, ""),
+				editor->statusbar_id);
+	editor->statusbar_id = gtk_statusbar_push(sb,
+			gtk_statusbar_get_context_id(sb, ""), status);
+}
+
+
 /* editor_config_filename */
 static char * _editor_config_filename(void)
 {
@@ -1455,4 +1476,21 @@ static void _editor_on_find_hide(gpointer data)
 	Editor * editor = data;
 
 	gtk_widget_hide(editor->fi_dialog);
+}
+
+
+/* editor_on_modified */
+static void _editor_on_modified(GtkTextBuffer * tbuf, gpointer data)
+{
+	Editor * editor = data;
+	gboolean modified;
+	char const * status;
+
+	if((modified = gtk_text_buffer_get_modified(tbuf)) == TRUE)
+		status = _("Unsaved changes");
+	else if(editor->filename != NULL)
+		status = _("Saved");
+	else
+		status = _("Ready");
+	_editor_set_status(editor, status);
 }
