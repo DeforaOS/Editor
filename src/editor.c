@@ -1082,6 +1082,7 @@ void editor_select_all(Editor * editor)
 static gboolean _preferences_on_closex(gpointer data);
 static void _preferences_on_response(GtkWidget * widget, gint response,
 		gpointer data);
+static void _preferences_on_apply(gpointer data);
 static void _preferences_on_cancel(gpointer data);
 static void _preferences_on_ok(gpointer data);
 
@@ -1106,6 +1107,7 @@ void editor_show_preferences(Editor * editor, gboolean show)
 			GTK_WINDOW(editor->window),
 			GTK_DIALOG_DESTROY_WITH_PARENT,
 			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+			GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
 			GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
 	g_signal_connect_swapped(G_OBJECT(editor->pr_window), "delete-event",
 			G_CALLBACK(_preferences_on_closex), editor);
@@ -1174,11 +1176,27 @@ static gboolean _preferences_on_closex(gpointer data)
 static void _preferences_on_response(GtkWidget * widget, gint response,
 		gpointer data)
 {
-	gtk_widget_hide(widget);
+	Editor * editor = data;
+
 	if(response == GTK_RESPONSE_OK)
-		_preferences_on_ok(data);
+		_preferences_on_ok(editor);
+	else if(response == GTK_RESPONSE_APPLY)
+		_preferences_on_apply(editor);
 	else if(response == GTK_RESPONSE_CANCEL)
-		_preferences_on_cancel(data);
+		_preferences_on_cancel(editor);
+}
+
+static void _preferences_on_apply(gpointer data)
+{
+	Editor * editor = data;
+	char const * font;
+	size_t i;
+
+	font = gtk_font_button_get_font_name(GTK_FONT_BUTTON(editor->pr_font));
+	editor_set_font(editor, font);
+	i = gtk_combo_box_get_active(GTK_COMBO_BOX(editor->pr_wrap));
+	if(i < sizeof(_editor_wrap) / sizeof(*_editor_wrap))
+		editor_set_wrap_mode(editor, _editor_wrap[i].wrap);
 }
 
 static void _preferences_on_cancel(gpointer data)
@@ -1198,15 +1216,9 @@ static void _preferences_on_cancel(gpointer data)
 static void _preferences_on_ok(gpointer data)
 {
 	Editor * editor = data;
-	char const * font;
-	size_t i;
 
 	gtk_widget_hide(editor->pr_window);
-	font = gtk_font_button_get_font_name(GTK_FONT_BUTTON(editor->pr_font));
-	editor_set_font(editor, font);
-	i = gtk_combo_box_get_active(GTK_COMBO_BOX(editor->pr_wrap));
-	if(i < sizeof(_editor_wrap) / sizeof(*_editor_wrap))
-		editor_set_wrap_mode(editor, _editor_wrap[i].wrap);
+	_preferences_on_apply(editor);
 	editor_config_save(editor);
 }
 
