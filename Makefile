@@ -26,8 +26,11 @@ dist:
 		$(PACKAGE)-$(VERSION)/data/project.conf \
 		$(PACKAGE)-$(VERSION)/doc/Makefile \
 		$(PACKAGE)-$(VERSION)/doc/docbook.sh \
+		$(PACKAGE)-$(VERSION)/doc/editor.css.xml \
 		$(PACKAGE)-$(VERSION)/doc/editor.xml \
+		$(PACKAGE)-$(VERSION)/doc/filter.css.xml \
 		$(PACKAGE)-$(VERSION)/doc/filter.xml \
+		$(PACKAGE)-$(VERSION)/doc/manual.css.xml \
 		$(PACKAGE)-$(VERSION)/doc/project.conf \
 		$(PACKAGE)-$(VERSION)/po/Makefile \
 		$(PACKAGE)-$(VERSION)/po/gettext.sh \

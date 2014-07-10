@@ -12,13 +12,13 @@ all: $(TARGETS)
 editor.1: editor.xml
 	./docbook.sh -P "$(PREFIX)" -- "editor.1"
 
-editor.html: editor.xml
+editor.html: editor.css.xml editor.xml manual.css.xml
 	./docbook.sh -P "$(PREFIX)" -- "editor.html"
 
 filter.1: filter.xml
 	./docbook.sh -P "$(PREFIX)" -- "filter.1"
 
-filter.html: filter.xml
+filter.html: filter.css.xml filter.xml manual.css.xml
 	./docbook.sh -P "$(PREFIX)" -- "filter.html"
 
 clean:
