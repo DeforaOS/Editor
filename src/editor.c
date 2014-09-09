@@ -112,7 +112,7 @@ static const DesktopMenu _editor_menu_file[] =
 	{ "", NULL, NULL, 0, 0 },
 	{ N_("_Save"), G_CALLBACK(on_file_save), GTK_STOCK_SAVE,
 		GDK_CONTROL_MASK, GDK_KEY_S },
-	{ N_("_Save as..."), G_CALLBACK(on_file_save_as), GTK_STOCK_SAVE_AS,
+	{ N_("Save _As..."), G_CALLBACK(on_file_save_as), GTK_STOCK_SAVE_AS,
 		GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_S },
 	{ "", NULL, NULL, 0, 0 },
 	{ N_("_Properties"), G_CALLBACK(on_file_properties),
