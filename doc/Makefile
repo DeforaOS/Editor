@@ -23,6 +23,9 @@ filter.html: filter.css.xml filter.xml manual.css.xml
 
 clean:
 	$(RM) -- $(editor.1_OBJS) $(editor.html_OBJS) $(filter.1_OBJS) $(filter.html_OBJS)
+	./docbook.sh -c -P "$(PREFIX)" -- "editor.1"
+	./docbook.sh -c -P "$(PREFIX)" -- "editor.html"
+	./docbook.sh -c -P "$(PREFIX)" -- "filter.1"
 	./docbook.sh -c -P "$(PREFIX)" -- "filter.html"
 
 distclean: clean
