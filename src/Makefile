@@ -1,4 +1,5 @@
-TARGETS	= editor
+TARGETS	= $(OBJDIR)editor
+OBJDIR	=
 PREFIX	= /usr/local
 DESTDIR	=
 BINDIR	= $(PREFIX)/bin
@@ -18,24 +19,24 @@ INSTALL	= install
 
 all: $(TARGETS)
 
-editor_OBJS = callbacks.o editor.o filter.o main.o
+editor_OBJS = $(OBJDIR)callbacks.o $(OBJDIR)editor.o $(OBJDIR)filter.o $(OBJDIR)main.o
 editor_CFLAGS = $(CPPFLAGSF) $(CPPFLAGS) $(CFLAGSF) $(CFLAGS)
 editor_LDFLAGS = $(LDFLAGSF) $(LDFLAGS)
 
-editor: $(editor_OBJS)
-	$(CC) -o editor $(editor_OBJS) $(editor_LDFLAGS)
+$(OBJDIR)editor: $(editor_OBJS)
+	$(CC) -o $(OBJDIR)editor $(editor_OBJS) $(editor_LDFLAGS)
 
-callbacks.o: callbacks.c editor.h callbacks.h
-	$(CC) $(editor_CFLAGS) -c callbacks.c
+$(OBJDIR)callbacks.o: callbacks.c editor.h callbacks.h
+	$(CC) $(editor_CFLAGS) -o $(OBJDIR)callbacks.o -c callbacks.c
 
-editor.o: editor.c callbacks.h editor.h ../config.h
-	$(CC) $(editor_CFLAGS) -c editor.c
+$(OBJDIR)editor.o: editor.c callbacks.h editor.h ../config.h
+	$(CC) $(editor_CFLAGS) -o $(OBJDIR)editor.o -c editor.c
 
-filter.o: filter.c filter.h
-	$(CC) $(editor_CFLAGS) -c filter.c
+$(OBJDIR)filter.o: filter.c filter.h
+	$(CC) $(editor_CFLAGS) -o $(OBJDIR)filter.o -c filter.c
 
-main.o: main.c filter.h
-	$(CC) $(editor_CFLAGS) -c main.c
+$(OBJDIR)main.o: main.c filter.h
+	$(CC) $(editor_CFLAGS) -o $(OBJDIR)main.o -c main.c
 
 clean:
 	$(RM) -- $(editor_OBJS)
@@ -45,7 +46,7 @@ distclean: clean
 
 install: $(TARGETS)
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 editor $(DESTDIR)$(BINDIR)/editor
+	$(INSTALL) -m 0755 $(OBJDIR)editor $(DESTDIR)$(BINDIR)/editor
 
 uninstall:
 	$(RM) -- $(DESTDIR)$(BINDIR)/editor

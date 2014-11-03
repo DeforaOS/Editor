@@ -1,4 +1,5 @@
-TARGETS	= filter
+TARGETS	= $(OBJDIR)filter
+OBJDIR	=
 PREFIX	= /usr/local
 DESTDIR	=
 BINDIR	= $(PREFIX)/bin
@@ -18,15 +19,15 @@ INSTALL	= install
 
 all: $(TARGETS)
 
-filter_OBJS = filter.o
+filter_OBJS = $(OBJDIR)filter.o
 filter_CFLAGS = $(CPPFLAGSF) $(CPPFLAGS) $(CFLAGSF) $(CFLAGS)
 filter_LDFLAGS = $(LDFLAGSF) $(LDFLAGS) ../src/filter.o
 
-filter: $(filter_OBJS)
-	$(CC) -o filter $(filter_OBJS) $(filter_LDFLAGS)
+$(OBJDIR)filter: $(filter_OBJS)
+	$(CC) -o $(OBJDIR)filter $(filter_OBJS) $(filter_LDFLAGS)
 
-filter.o: filter.c
-	$(CC) $(filter_CFLAGS) -c filter.c
+$(OBJDIR)filter.o: filter.c
+	$(CC) $(filter_CFLAGS) -o $(OBJDIR)filter.o -c filter.c
 
 clean:
 	$(RM) -- $(filter_OBJS)
@@ -36,7 +37,7 @@ distclean: clean
 
 install: $(TARGETS)
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 filter $(DESTDIR)$(BINDIR)/filter
+	$(INSTALL) -m 0755 $(OBJDIR)filter $(DESTDIR)$(BINDIR)/filter
 
 uninstall:
 	$(RM) -- $(DESTDIR)$(BINDIR)/filter

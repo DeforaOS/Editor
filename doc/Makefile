@@ -1,4 +1,5 @@
-TARGETS	= editor.1 editor.html filter.1 filter.html
+TARGETS	= $(OBJDIR)editor.1 $(OBJDIR)editor.html $(OBJDIR)filter.1 $(OBJDIR)filter.html
+OBJDIR	=
 PREFIX	= /usr/local
 DESTDIR	=
 RM	= rm -f
@@ -9,17 +10,17 @@ INSTALL	= install
 
 all: $(TARGETS)
 
-editor.1: editor.xml
-	./docbook.sh -P "$(PREFIX)" -- "editor.1"
+$(OBJDIR)editor.1: editor.xml
+	./docbook.sh -P "$(PREFIX)" -- "$(OBJDIR)editor.1"
 
-editor.html: editor.css.xml editor.xml manual.css.xml
-	./docbook.sh -P "$(PREFIX)" -- "editor.html"
+$(OBJDIR)editor.html: editor.css.xml editor.xml manual.css.xml
+	./docbook.sh -P "$(PREFIX)" -- "$(OBJDIR)editor.html"
 
-filter.1: filter.xml
-	./docbook.sh -P "$(PREFIX)" -- "filter.1"
+$(OBJDIR)filter.1: filter.xml
+	./docbook.sh -P "$(PREFIX)" -- "$(OBJDIR)filter.1"
 
-filter.html: filter.css.xml filter.xml manual.css.xml
-	./docbook.sh -P "$(PREFIX)" -- "filter.html"
+$(OBJDIR)filter.html: filter.css.xml filter.xml manual.css.xml
+	./docbook.sh -P "$(PREFIX)" -- "$(OBJDIR)filter.html"
 
 clean:
 	$(RM) -- $(editor.1_OBJS) $(editor.html_OBJS) $(filter.1_OBJS) $(filter.html_OBJS)
@@ -32,10 +33,10 @@ distclean: clean
 	$(RM) -- $(TARGETS)
 
 install: $(TARGETS)
-	./docbook.sh -P "$(DESTDIR)$(PREFIX)" -i -- "editor.1"
-	./docbook.sh -P "$(DESTDIR)$(PREFIX)" -i -- "editor.html"
-	./docbook.sh -P "$(DESTDIR)$(PREFIX)" -i -- "filter.1"
-	./docbook.sh -P "$(DESTDIR)$(PREFIX)" -i -- "filter.html"
+	./docbook.sh -P "$(DESTDIR)$(PREFIX)" -i -- "$(OBJDIR)editor.1"
+	./docbook.sh -P "$(DESTDIR)$(PREFIX)" -i -- "$(OBJDIR)editor.html"
+	./docbook.sh -P "$(DESTDIR)$(PREFIX)" -i -- "$(OBJDIR)filter.1"
+	./docbook.sh -P "$(DESTDIR)$(PREFIX)" -i -- "$(OBJDIR)filter.html"
 
 uninstall:
 	./docbook.sh -P "$(DESTDIR)$(PREFIX)" -u -- "editor.1"
