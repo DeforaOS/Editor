@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Editor 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-06 15:57+0200\n"
+"POT-Creation-Date: 2014-12-27 18:29+0100\n"
 "PO-Revision-Date: 2010-04-07 22:07+0200\n"
 "Last-Translator: Pierre Pronchery <khorben@defora.org>\n"
 "Language-Team: Spanish\n"
@@ -29,8 +29,8 @@ msgid "_Save"
 msgstr "_Guardar"
 
 #: ../src/editor.c:115
-msgid "_Save as..."
-msgstr "Guardar co_mo..."
+msgid "Save _As..."
+msgstr "Guardar _como..."
 
 #: ../src/editor.c:118 ../src/editor.c:130
 msgid "_Properties"
@@ -61,7 +61,7 @@ msgid "_Paste"
 msgstr "_Pegar"
 
 #: ../src/editor.c:151
-msgid "Select _all"
+msgid "Select _All"
 msgstr "Seleccionar _todo"
 
 #: ../src/editor.c:158
@@ -176,7 +176,7 @@ msgstr ""
 msgid "Wrap"
 msgstr ""
 
-#: ../src/editor.c:431 ../src/editor.c:1514
+#: ../src/editor.c:431 ../src/editor.c:1526
 msgid "Ready"
 msgstr ""
 
@@ -247,48 +247,48 @@ msgstr ""
 msgid "Save as..."
 msgstr "Guardar como..."
 
-#: ../src/editor.c:1105
+#: ../src/editor.c:1106
 msgid "Text editor preferences"
 msgstr ""
 
-#: ../src/editor.c:1126
+#: ../src/editor.c:1128
 msgid "Font:"
 msgstr ""
 
-#: ../src/editor.c:1140
+#: ../src/editor.c:1142
 msgid "Wrap mode:"
 msgstr ""
 
-#: ../src/editor.c:1237
+#: ../src/editor.c:1249
 #, c-format
 msgid "Properties of %s"
 msgstr ""
 
-#: ../src/editor.c:1263
+#: ../src/editor.c:1275
 msgid "Filename:"
 msgstr ""
 
-#: ../src/editor.c:1270
+#: ../src/editor.c:1282
 msgid "Characters:"
 msgstr ""
 
-#: ../src/editor.c:1277
+#: ../src/editor.c:1289
 msgid "Lines:"
 msgstr ""
 
-#: ../src/editor.c:1337
+#: ../src/editor.c:1349
 msgid "Could not update the filename"
 msgstr ""
 
-#: ../src/editor.c:1489
+#: ../src/editor.c:1501
 msgid "Text not found"
 msgstr ""
 
-#: ../src/editor.c:1510
+#: ../src/editor.c:1522
 msgid "Unsaved changes"
 msgstr ""
 
-#: ../src/editor.c:1512
+#: ../src/editor.c:1524
 msgid "Saved"
 msgstr ""
 

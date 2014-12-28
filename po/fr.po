@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Editor 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-06 15:57+0200\n"
+"POT-Creation-Date: 2014-12-27 18:29+0100\n"
 "PO-Revision-Date: 2010-04-11 12:32+0200\n"
 "Last-Translator: Calimero <calimeroteknik@free.fr>\n"
 "Language-Team: French\n"
@@ -29,8 +29,8 @@ msgid "_Save"
 msgstr "_Enregistrer"
 
 #: ../src/editor.c:115
-msgid "_Save as..."
-msgstr "_Enregistrer sous..."
+msgid "Save _As..."
+msgstr "Enregistrer _sous..."
 
 #: ../src/editor.c:118 ../src/editor.c:130
 msgid "_Properties"
@@ -61,8 +61,8 @@ msgid "_Paste"
 msgstr "C_oller"
 
 #: ../src/editor.c:151
-msgid "Select _all"
-msgstr "Sélectionner _tout"
+msgid "Select _All"
+msgstr "_Tout sélectionner"
 
 #: ../src/editor.c:158
 msgid "_Unselect all"
@@ -176,7 +176,7 @@ msgstr "Sensible à la casse"
 msgid "Wrap"
 msgstr "Boucler"
 
-#: ../src/editor.c:431 ../src/editor.c:1514
+#: ../src/editor.c:431 ../src/editor.c:1526
 msgid "Ready"
 msgstr "Prêt"
 
@@ -251,48 +251,48 @@ msgstr "Le fichier existe déjà. L'écraser ?"
 msgid "Save as..."
 msgstr "Enregistrer sous..."
 
-#: ../src/editor.c:1105
+#: ../src/editor.c:1106
 msgid "Text editor preferences"
 msgstr "Préférences de l'éditeur de texte"
 
-#: ../src/editor.c:1126
+#: ../src/editor.c:1128
 msgid "Font:"
 msgstr "Police :"
 
-#: ../src/editor.c:1140
+#: ../src/editor.c:1142
 msgid "Wrap mode:"
 msgstr "Retour à la ligne :"
 
-#: ../src/editor.c:1237
+#: ../src/editor.c:1249
 #, c-format
 msgid "Properties of %s"
 msgstr "Propriétés de %s"
 
-#: ../src/editor.c:1263
+#: ../src/editor.c:1275
 msgid "Filename:"
 msgstr "Nom du fichier :"
 
-#: ../src/editor.c:1270
+#: ../src/editor.c:1282
 msgid "Characters:"
 msgstr "Caractères :"
 
-#: ../src/editor.c:1277
+#: ../src/editor.c:1289
 msgid "Lines:"
 msgstr "Lignes :"
 
-#: ../src/editor.c:1337
+#: ../src/editor.c:1349
 msgid "Could not update the filename"
 msgstr "Erreur lors de la mise à jour du nom de fichier"
 
-#: ../src/editor.c:1489
+#: ../src/editor.c:1501
 msgid "Text not found"
 msgstr "Texte non trouvé"
 
-#: ../src/editor.c:1510
+#: ../src/editor.c:1522
 msgid "Unsaved changes"
 msgstr "Changements non sauvegardés"
 
-#: ../src/editor.c:1512
+#: ../src/editor.c:1524
 msgid "Saved"
 msgstr "Sauvegardé"
 
