@@ -1109,6 +1109,7 @@ void editor_show_preferences(Editor * editor, gboolean show)
 			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 			GTK_STOCK_APPLY, GTK_RESPONSE_APPLY,
 			GTK_STOCK_OK, GTK_RESPONSE_OK, NULL);
+	gtk_window_set_resizable(GTK_WINDOW(editor->pr_window), FALSE);
 	g_signal_connect_swapped(G_OBJECT(editor->pr_window), "delete-event",
 			G_CALLBACK(_preferences_on_closex), editor);
 	g_signal_connect(G_OBJECT(editor->pr_window), "response",
