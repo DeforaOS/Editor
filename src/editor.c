@@ -1119,6 +1119,7 @@ void editor_show_preferences(Editor * editor, gboolean show)
 #else
 	vbox = GTK_DIALOG(editor->pr_window)->vbox;
 #endif
+	gtk_box_set_spacing(GTK_BOX(vbox), 4);
 	group = gtk_size_group_new(GTK_SIZE_GROUP_HORIZONTAL);
 	/* font */
 #if GTK_CHECK_VERSION(3, 0, 0)
