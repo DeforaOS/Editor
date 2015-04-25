@@ -115,7 +115,10 @@ static const DesktopMenu _editor_menu_file[] =
 	{ N_("Save _As..."), G_CALLBACK(on_file_save_as), GTK_STOCK_SAVE_AS,
 		GDK_CONTROL_MASK | GDK_SHIFT_MASK, GDK_KEY_S },
 	{ "", NULL, NULL, 0, 0 },
-	{ N_("_Properties"), G_CALLBACK(on_file_properties),
+	{ N_("_Print"), G_CALLBACK(on_file_print),
+		GTK_STOCK_PRINT, GDK_CONTROL_MASK, GDK_KEY_P },
+	{ "", NULL, NULL, 0, 0 },
+	{ N_("Pr_operties"), G_CALLBACK(on_file_properties),
 		GTK_STOCK_PROPERTIES, GDK_MOD1_MASK, GDK_KEY_Return },
 	{ "", NULL, NULL, 0, 0 },
 	{ N_("_Close"), G_CALLBACK(on_file_close), GTK_STOCK_CLOSE, 0, 0 },
@@ -217,11 +220,14 @@ static DesktopToolbar _editor_toolbar[] =
 	{ N_("Paste"), G_CALLBACK(on_paste), GTK_STOCK_PASTE, 0, 0, NULL },
 #ifdef EMBEDDED
 	{ "", NULL, NULL, 0, 0, NULL },
+	{ N_("Print"), G_CALLBACK(on_print), GTK_STOCK_PREFERENCES,
+		GDK_CONTROL_MASK, GDK_KEY_P, NULL },
+	{ "", NULL, NULL, 0, 0, NULL },
 	{ N_("Find"), G_CALLBACK(on_find), GTK_STOCK_FIND, GDK_CONTROL_MASK,
 		GDK_KEY_F, NULL },
 	{ "", NULL, NULL, 0, 0, NULL },
 	{ N_("Preferences"), G_CALLBACK(on_preferences), GTK_STOCK_PREFERENCES,
-		GDK_CONTROL_MASK, GDK_KEY_P, NULL },
+		0, 0, NULL },
 	{ N_("Properties"), G_CALLBACK(on_properties), GTK_STOCK_PROPERTIES,
 		GDK_MOD1_MASK, GDK_KEY_Return, NULL },
 	{ "", NULL, NULL, 0, 0, NULL },
@@ -244,7 +250,7 @@ static DesktopToolbar _editor_toolbar_filter[] =
 		GDK_KEY_F, NULL },
 	{ "", NULL, NULL, 0, 0, NULL },
 	{ N_("Preferences"), G_CALLBACK(on_preferences), GTK_STOCK_PREFERENCES,
-		GDK_CONTROL_MASK, GDK_KEY_P, NULL },
+		0, 0, NULL },
 	{ N_("Properties"), G_CALLBACK(on_properties), GTK_STOCK_PROPERTIES,
 		GDK_MOD1_MASK, GDK_KEY_Return, NULL },
 	{ "", NULL, NULL, 0, 0, NULL },
@@ -958,6 +964,13 @@ void editor_paste(Editor * editor)
 	clipboard = gtk_widget_get_clipboard(editor->view,
 			GDK_SELECTION_CLIPBOARD);
 	gtk_text_buffer_paste_clipboard(buffer, clipboard, NULL, TRUE);
+}
+
+
+/* editor_print_dialog */
+void editor_print_dialog(Editor * editor)
+{
+	/* FIXME implement */
 }
 
 

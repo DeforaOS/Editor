@@ -62,6 +62,8 @@ void editor_paste(Editor * editor);
 int editor_insert_file(Editor * editor, char const * filename);
 int editor_insert_file_dialog(Editor * editor);
 
+void editor_print_dialog(Editor * editor);
+
 gboolean editor_save(Editor * editor);
 gboolean editor_save_as(Editor * editor, char const * filename);
 gboolean editor_save_as_dialog(Editor * editor);

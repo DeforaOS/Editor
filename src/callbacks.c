@@ -125,6 +125,15 @@ void on_file_open(gpointer data)
 }
 
 
+/* on_file_print */
+void on_file_print(gpointer data)
+{
+	Editor * editor = data;
+
+	editor_print_dialog(editor);
+}
+
+
 /* on_file_properties */
 void on_file_properties(gpointer data)
 {
@@ -238,6 +247,15 @@ void on_paste(gpointer data)
 	Editor * editor = data;
 
 	editor_paste(editor);
+}
+
+
+/* on_print */
+void on_print(gpointer data)
+{
+	Editor * editor = data;
+
+	editor_print_dialog(editor);
 }
 
 
