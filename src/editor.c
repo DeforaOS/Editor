@@ -968,6 +968,13 @@ void editor_paste(Editor * editor)
 
 
 /* editor_print_dialog */
+static void _print_dialog_on_begin_print(GtkPrintOperation * operation,
+		GtkPrintContext * content, gpointer data);
+static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
+		GtkPrintContext * content, gint page, gpointer data);
+static void _print_dialog_on_end_print(GtkPrintOperation * operation,
+		GtkPrintContext * content, gpointer data);
+
 void editor_print_dialog(Editor * editor)
 {
 	GtkPrintOperation * operation;
@@ -975,6 +982,12 @@ void editor_print_dialog(Editor * editor)
 	GError * error = NULL;
 
 	operation = gtk_print_operation_new();
+	g_signal_connect(operation, "begin-print", G_CALLBACK(
+				_print_dialog_on_begin_print), editor);
+	g_signal_connect(operation, "draw-page", G_CALLBACK(
+				_print_dialog_on_draw_page), editor);
+	g_signal_connect(operation, "end-print", G_CALLBACK(
+				_print_dialog_on_end_print), editor);
 	settings = gtk_print_settings_new();
 	/* FIXME implement */
 	gtk_print_operation_set_print_settings(operation, settings);
@@ -988,6 +1001,30 @@ void editor_print_dialog(Editor * editor)
 		editor_error(editor, error->message, 1);
 		g_error_free(error);
 	}
+}
+
+static void _print_dialog_on_begin_print(GtkPrintOperation * operation,
+		GtkPrintContext * content, gpointer data)
+{
+	Editor * editor = data;
+
+	/* FIXME implement */
+}
+
+static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
+		GtkPrintContext * content, gint page, gpointer data)
+{
+	Editor * editor = data;
+
+	/* FIXME implement */
+}
+
+static void _print_dialog_on_end_print(GtkPrintOperation * operation,
+		GtkPrintContext * content, gpointer data)
+{
+	Editor * editor = data;
+
+	/* FIXME implement */
 }
 
 
