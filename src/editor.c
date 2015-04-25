@@ -26,6 +26,7 @@ static char const _license[] =
 #include <string.h>
 #include <limits.h>
 #include <errno.h>
+#include <math.h>
 #include <libintl.h>
 #include <gdk/gdkkeysyms.h>
 #include <Desktop.h>
@@ -79,6 +80,11 @@ struct _Editor
 	GtkWidget * fi_wrap;
 	/* about */
 	GtkWidget * ab_window;
+
+	/* printing */
+	GtkTextIter iter;
+	guint line_count;
+	PangoFontDescription * font;
 };
 
 
@@ -1004,27 +1010,68 @@ void editor_print_dialog(Editor * editor)
 }
 
 static void _print_dialog_on_begin_print(GtkPrintOperation * operation,
-		GtkPrintContext * content, gpointer data)
+		GtkPrintContext * context, gpointer data)
 {
 	Editor * editor = data;
+	GtkTextBuffer * tbuf;
+	gint count;
+	double height;
+	const guint size = 10;
 
-	/* FIXME implement */
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(editor->view), FALSE);
+	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
+	gtk_text_buffer_get_iter_at_line(tbuf, &editor->iter, 0);
+	count = gtk_text_buffer_get_line_count(tbuf);
+	height = gtk_print_context_get_height(context);
+	editor->line_count = floor(height / size);
+	gtk_print_operation_set_n_pages(operation,
+			((count - 1) / editor->line_count) + 1);
+	editor->font = pango_font_description_from_string("monospace");
 }
 
 static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
-		GtkPrintContext * content, gint page, gpointer data)
+		GtkPrintContext * context, gint page, gpointer data)
 {
 	Editor * editor = data;
+	GtkTextBuffer * tbuf;
+	cairo_t * cairo;
+	PangoLayout * layout;
+	guint i;
+	gboolean valid = TRUE;
+	GtkTextIter end;
+	gchar * p;
+	const guint size = 10;
 
-	/* FIXME implement */
+	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
+	cairo = gtk_print_context_get_cairo_context(context);
+	layout = gtk_print_context_create_pango_layout(context);
+	/* set the font */
+	pango_layout_set_font_description(layout, editor->font);
+	/* print the text */
+	cairo_move_to(cairo, 0, 0);
+	for(i = 0, valid = !gtk_text_iter_is_end(&editor->iter);
+			i < editor->line_count && valid == TRUE;
+			i++, valid = gtk_text_iter_forward_line(&editor->iter))
+	{
+		end = editor->iter;
+		if(!gtk_text_iter_ends_line(&end))
+			gtk_text_iter_forward_to_line_end(&end);
+		p = gtk_text_buffer_get_text(tbuf, &editor->iter, &end, FALSE);
+		pango_layout_set_text(layout, p, -1);
+		g_free(p);
+		pango_cairo_show_layout(cairo, layout);
+		cairo_rel_move_to(cairo, 0, size);
+	}
+	g_object_unref(layout);
 }
 
 static void _print_dialog_on_end_print(GtkPrintOperation * operation,
-		GtkPrintContext * content, gpointer data)
+		GtkPrintContext * context, gpointer data)
 {
 	Editor * editor = data;
 
-	/* FIXME implement */
+	pango_font_description_free(editor->font);
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(editor->view), TRUE);
 }
 
 
