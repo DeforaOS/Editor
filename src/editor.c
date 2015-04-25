@@ -970,7 +970,24 @@ void editor_paste(Editor * editor)
 /* editor_print_dialog */
 void editor_print_dialog(Editor * editor)
 {
+	GtkPrintOperation * operation;
+	GtkPrintSettings * settings;
+	GError * error = NULL;
+
+	operation = gtk_print_operation_new();
+	settings = gtk_print_settings_new();
 	/* FIXME implement */
+	gtk_print_operation_set_print_settings(operation, settings);
+	gtk_print_operation_run(operation,
+			GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
+			GTK_WINDOW(editor->window), &error);
+	g_object_unref(settings);
+	g_object_unref(operation);
+	if(error)
+	{
+		editor_error(editor, error->message, 1);
+		g_error_free(error);
+	}
 }
 
 
