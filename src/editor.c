@@ -1071,6 +1071,8 @@ static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
 	pango_layout_set_font_description(layout, editor->font);
 	/* print the text */
 	cairo_move_to(cairo, 0.0, 0.0);
+	gtk_text_buffer_get_iter_at_line(tbuf, &editor->iter,
+			editor->line_count * page);
 	for(i = 0, valid = !gtk_text_iter_is_end(&editor->iter);
 			i < editor->line_count && valid == TRUE;
 			i++, valid = gtk_text_iter_forward_line(&editor->iter))
@@ -1108,7 +1110,6 @@ static gboolean _print_dialog_on_paginate(GtkPrintOperation * operation,
 	/* count the lines to print */
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(editor->view), FALSE);
 	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
-	gtk_text_buffer_get_iter_at_line(tbuf, &editor->iter, 0);
 	count = gtk_text_buffer_get_line_count(tbuf);
 	/* count the pages required */
 	height = gtk_print_context_get_height(context);
