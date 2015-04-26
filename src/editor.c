@@ -84,6 +84,7 @@ struct _Editor
 	/* printing */
 	PangoFontDescription * font;
 	double font_size;
+	double line_space;
 	GtkTextIter iter;
 	guint line_count;
 };
@@ -1026,6 +1027,7 @@ static void _print_dialog_on_begin_print(GtkPrintOperation * operation,
 	/* initialize the font */
 	editor->font = pango_font_description_from_string("monospace");
 	editor->font_size = 10.0;
+	editor->line_space = 0.0;
 	pango_font_description_set_size(editor->font,
 			editor->font_size * PANGO_SCALE);
 }
@@ -1078,7 +1080,8 @@ static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
 		pango_layout_set_text(layout, p, -1);
 		g_free(p);
 		pango_cairo_show_layout(cairo, layout);
-		cairo_rel_move_to(cairo, 0.0, editor->font_size);
+		cairo_rel_move_to(cairo, 0.0, editor->font_size
+				+ editor->line_space);
 	}
 	g_object_unref(layout);
 }
@@ -1107,7 +1110,8 @@ static gboolean _print_dialog_on_paginate(GtkPrintOperation * operation,
 	count = gtk_text_buffer_get_line_count(tbuf);
 	/* count the pages required */
 	height = gtk_print_context_get_height(context);
-	editor->line_count = floor(height / editor->font_size);
+	editor->line_count = floor(height / (editor->font_size
+				+ editor->line_space));
 	gtk_print_operation_set_n_pages(operation,
 			((count - 1) / editor->line_count) + 1);
 	return TRUE;
