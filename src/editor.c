@@ -994,6 +994,9 @@ void editor_print_dialog(Editor * editor)
 	GError * error = NULL;
 
 	operation = gtk_print_operation_new();
+	gtk_print_operation_set_embed_page_setup(operation, TRUE);
+	gtk_print_operation_set_unit(operation, GTK_UNIT_POINTS);
+	gtk_print_operation_set_use_full_page(operation, FALSE);
 	g_signal_connect(operation, "begin-print", G_CALLBACK(
 				_print_dialog_on_begin_print), editor);
 	g_signal_connect(operation, "done", G_CALLBACK(_print_dialog_on_done),
@@ -1005,7 +1008,6 @@ void editor_print_dialog(Editor * editor)
 	g_signal_connect(operation, "paginate", G_CALLBACK(
 				_print_dialog_on_paginate), editor);
 	settings = gtk_print_settings_new();
-	/* FIXME implement */
 	gtk_print_operation_set_print_settings(operation, settings);
 	gtk_print_operation_run(operation,
 			GTK_PRINT_OPERATION_ACTION_PRINT_DIALOG,
