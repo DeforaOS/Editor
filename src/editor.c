@@ -1081,6 +1081,7 @@ static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
 		if(!gtk_text_iter_ends_line(&end))
 			gtk_text_iter_forward_to_line_end(&end);
 		p = gtk_text_buffer_get_text(tbuf, &editor->iter, &end, FALSE);
+		/* FIXME the line may be too long */
 		pango_layout_set_text(layout, p, -1);
 		g_free(p);
 		pango_cairo_show_layout(cairo, layout);
