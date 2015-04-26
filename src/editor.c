@@ -976,11 +976,11 @@ void editor_paste(Editor * editor)
 
 /* editor_print_dialog */
 static void _print_dialog_on_begin_print(GtkPrintOperation * operation,
-		GtkPrintContext * content, gpointer data);
+		GtkPrintContext * context, gpointer data);
 static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
-		GtkPrintContext * content, gint page, gpointer data);
+		GtkPrintContext * context, gint page, gpointer data);
 static void _print_dialog_on_end_print(GtkPrintOperation * operation,
-		GtkPrintContext * content, gpointer data);
+		GtkPrintContext * context, gpointer data);
 
 void editor_print_dialog(Editor * editor)
 {
