@@ -981,6 +981,8 @@ static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
 		GtkPrintContext * context, gint page, gpointer data);
 static void _print_dialog_on_end_print(GtkPrintOperation * operation,
 		GtkPrintContext * context, gpointer data);
+static gboolean _print_dialog_on_paginate(GtkPrintOperation * operation,
+		GtkPrintContext * context, gpointer data);
 
 void editor_print_dialog(Editor * editor)
 {
@@ -995,6 +997,8 @@ void editor_print_dialog(Editor * editor)
 				_print_dialog_on_draw_page), editor);
 	g_signal_connect(operation, "end-print", G_CALLBACK(
 				_print_dialog_on_end_print), editor);
+	g_signal_connect(operation, "paginate", G_CALLBACK(
+				_print_dialog_on_paginate), editor);
 	settings = gtk_print_settings_new();
 	/* FIXME implement */
 	gtk_print_operation_set_print_settings(operation, settings);
@@ -1014,25 +1018,12 @@ static void _print_dialog_on_begin_print(GtkPrintOperation * operation,
 		GtkPrintContext * context, gpointer data)
 {
 	Editor * editor = data;
-	GtkTextBuffer * tbuf;
-	gint count;
-	double height;
 
 	/* initialize the font */
 	editor->font = pango_font_description_from_string("monospace");
 	editor->font_size = 10.0;
 	pango_font_description_set_size(editor->font,
 			editor->font_size * PANGO_SCALE);
-	/* count the lines to print */
-	gtk_text_view_set_editable(GTK_TEXT_VIEW(editor->view), FALSE);
-	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
-	gtk_text_buffer_get_iter_at_line(tbuf, &editor->iter, 0);
-	count = gtk_text_buffer_get_line_count(tbuf);
-	/* count the pages required */
-	height = gtk_print_context_get_height(context);
-	editor->line_count = floor(height / editor->font_size);
-	gtk_print_operation_set_n_pages(operation,
-			((count - 1) / editor->line_count) + 1);
 }
 
 static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
@@ -1077,6 +1068,27 @@ static void _print_dialog_on_end_print(GtkPrintOperation * operation,
 
 	pango_font_description_free(editor->font);
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(editor->view), TRUE);
+}
+
+static gboolean _print_dialog_on_paginate(GtkPrintOperation * operation,
+		GtkPrintContext * context, gpointer data)
+{
+	Editor * editor = data;
+	GtkTextBuffer * tbuf;
+	gint count;
+	double height;
+
+	/* count the lines to print */
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(editor->view), FALSE);
+	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
+	gtk_text_buffer_get_iter_at_line(tbuf, &editor->iter, 0);
+	count = gtk_text_buffer_get_line_count(tbuf);
+	/* count the pages required */
+	height = gtk_print_context_get_height(context);
+	editor->line_count = floor(height / editor->font_size);
+	gtk_print_operation_set_n_pages(operation,
+			((count - 1) / editor->line_count) + 1);
+	return TRUE;
 }
 
 
