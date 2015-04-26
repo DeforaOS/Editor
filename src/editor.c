@@ -82,9 +82,10 @@ struct _Editor
 	GtkWidget * ab_window;
 
 	/* printing */
+	PangoFontDescription * font;
+	double font_size;
 	GtkTextIter iter;
 	guint line_count;
-	PangoFontDescription * font;
 };
 
 
@@ -1016,17 +1017,22 @@ static void _print_dialog_on_begin_print(GtkPrintOperation * operation,
 	GtkTextBuffer * tbuf;
 	gint count;
 	double height;
-	const guint size = 10;
 
+	/* initialize the font */
+	editor->font = pango_font_description_from_string("monospace");
+	editor->font_size = 10.0;
+	pango_font_description_set_size(editor->font,
+			editor->font_size * PANGO_SCALE);
+	/* count the lines to print */
 	gtk_text_view_set_editable(GTK_TEXT_VIEW(editor->view), FALSE);
 	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
 	gtk_text_buffer_get_iter_at_line(tbuf, &editor->iter, 0);
 	count = gtk_text_buffer_get_line_count(tbuf);
+	/* count the pages required */
 	height = gtk_print_context_get_height(context);
-	editor->line_count = floor(height / size);
+	editor->line_count = floor(height / editor->font_size);
 	gtk_print_operation_set_n_pages(operation,
 			((count - 1) / editor->line_count) + 1);
-	editor->font = pango_font_description_from_string("monospace");
 }
 
 static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
@@ -1040,7 +1046,6 @@ static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
 	gboolean valid = TRUE;
 	GtkTextIter end;
 	gchar * p;
-	const guint size = 10;
 
 	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
 	cairo = gtk_print_context_get_cairo_context(context);
@@ -1048,7 +1053,7 @@ static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
 	/* set the font */
 	pango_layout_set_font_description(layout, editor->font);
 	/* print the text */
-	cairo_move_to(cairo, 0, 0);
+	cairo_move_to(cairo, 0.0, 0.0);
 	for(i = 0, valid = !gtk_text_iter_is_end(&editor->iter);
 			i < editor->line_count && valid == TRUE;
 			i++, valid = gtk_text_iter_forward_line(&editor->iter))
@@ -1060,7 +1065,7 @@ static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
 		pango_layout_set_text(layout, p, -1);
 		g_free(p);
 		pango_cairo_show_layout(cairo, layout);
-		cairo_rel_move_to(cairo, 0, size);
+		cairo_rel_move_to(cairo, 0.0, editor->font_size);
 	}
 	g_object_unref(layout);
 }
