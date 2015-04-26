@@ -977,6 +977,8 @@ void editor_paste(Editor * editor)
 /* editor_print_dialog */
 static void _print_dialog_on_begin_print(GtkPrintOperation * operation,
 		GtkPrintContext * context, gpointer data);
+static void _print_dialog_on_done(GtkPrintOperation * operation,
+		GtkPrintOperationResult result, gpointer data);
 static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
 		GtkPrintContext * context, gint page, gpointer data);
 static void _print_dialog_on_end_print(GtkPrintOperation * operation,
@@ -993,6 +995,8 @@ void editor_print_dialog(Editor * editor)
 	operation = gtk_print_operation_new();
 	g_signal_connect(operation, "begin-print", G_CALLBACK(
 				_print_dialog_on_begin_print), editor);
+	g_signal_connect(operation, "done", G_CALLBACK(_print_dialog_on_done),
+			editor);
 	g_signal_connect(operation, "draw-page", G_CALLBACK(
 				_print_dialog_on_draw_page), editor);
 	g_signal_connect(operation, "end-print", G_CALLBACK(
@@ -1024,6 +1028,24 @@ static void _print_dialog_on_begin_print(GtkPrintOperation * operation,
 	editor->font_size = 10.0;
 	pango_font_description_set_size(editor->font,
 			editor->font_size * PANGO_SCALE);
+}
+
+static void _print_dialog_on_done(GtkPrintOperation * operation,
+		GtkPrintOperationResult result, gpointer data)
+{
+	Editor * editor = data;
+	GError * error = NULL;
+
+	switch(result)
+	{
+		case GTK_PRINT_OPERATION_RESULT_ERROR:
+			gtk_print_operation_get_error(operation, &error);
+			editor_error(editor, error->message, 2);
+			g_error_free(error);
+			break;
+		default:
+			break;
+	}
 }
 
 static void _print_dialog_on_draw_page(GtkPrintOperation * operation,
