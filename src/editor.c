@@ -1025,13 +1025,13 @@ static void _print_dialog_on_begin_print(GtkPrintOperation * operation,
 		GtkPrintContext * context, gpointer data)
 {
 	Editor * editor = data;
+	const gint size = 10;
 
 	/* initialize the font */
 	editor->font = pango_font_description_from_string("monospace");
-	editor->font_size = 10.0;
+	pango_font_description_set_size(editor->font, size * PANGO_SCALE);
+	editor->font_size = size;
 	editor->line_space = 0.0;
-	pango_font_description_set_size(editor->font,
-			editor->font_size * PANGO_SCALE);
 }
 
 static void _print_dialog_on_done(GtkPrintOperation * operation,
