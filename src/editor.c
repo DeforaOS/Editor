@@ -1029,7 +1029,8 @@ static void _print_dialog_on_begin_print(GtkPrintOperation * operation,
 
 	/* initialize the font */
 	editor->font = pango_font_description_from_string("monospace");
-	pango_font_description_set_size(editor->font, size * PANGO_SCALE);
+	pango_font_description_set_size(editor->font,
+			pango_units_from_double(size));
 	editor->font_size = size;
 	editor->line_space = 0.0;
 }
