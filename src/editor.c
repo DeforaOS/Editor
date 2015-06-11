@@ -185,7 +185,7 @@ static const DesktopMenu _editor_menu_edit[] =
 		GDK_CONTROL_MASK, GDK_KEY_F },
 	{ "", NULL, NULL, 0, 0 },
 	{ N_("_Preferences"), G_CALLBACK(on_edit_preferences),
-		GTK_STOCK_PREFERENCES, GDK_CONTROL_MASK, GDK_KEY_P },
+		GTK_STOCK_PREFERENCES, 0, 0 },
 	{ NULL, NULL, NULL, 0, 0 }
 };
 
