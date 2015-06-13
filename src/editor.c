@@ -1450,7 +1450,7 @@ void editor_show_properties(Editor * editor, gboolean show)
 		q = p;
 	}
 	widget = gtk_entry_new();
-	gtk_entry_set_editable(GTK_ENTRY(widget), FALSE);
+	gtk_editable_set_editable(GTK_EDITABLE(widget), FALSE);
 	gtk_entry_set_text(GTK_ENTRY(widget), q);
 	gtk_size_group_add_widget(vgroup, widget);
 	g_free(p);
