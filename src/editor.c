@@ -1427,8 +1427,11 @@ void editor_show_properties(Editor * editor, gboolean show)
 		/* XXX should really hide the window */
 		return;
 	p = (editor->filename != NULL)
-		? g_filename_display_basename(editor->filename) : g_strdup("");
-	snprintf(buf, sizeof(buf), _("Properties of %s"), p);
+		? g_filename_display_basename(editor->filename) : NULL;
+	if(p != NULL)
+		snprintf(buf, sizeof(buf), _("Properties of %s"), p);
+	else
+		snprintf(buf, sizeof(buf), "%s", _("Properties"));
 	g_free(p);
 	dialog = gtk_dialog_new_with_buttons(buf, GTK_WINDOW(editor->window),
 			GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
