@@ -87,7 +87,7 @@ msgstr "_Datei..."
 
 #: ../src/editor.c:203
 msgid "_Contents"
-msgstr ""
+msgstr "_Contents"
 
 #: ../src/editor.c:205
 msgid "_About"
@@ -187,7 +187,7 @@ msgstr ""
 
 #: ../src/editor.c:461 ../src/editor.c:1711
 msgid "Ready"
-msgstr ""
+msgstr "Bereit"
 
 #: ../src/editor.c:477
 msgid "Text editor - "
@@ -271,7 +271,7 @@ msgstr ""
 #: ../src/editor.c:1432
 #, c-format
 msgid "Properties of %s"
-msgstr ""
+msgstr "Eigenschaften von %s"
 
 #: ../src/editor.c:1460
 msgid "Filename:"
