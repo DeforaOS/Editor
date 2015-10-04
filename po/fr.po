@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Editor 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-11 10:37-0400\n"
+"POT-Creation-Date: 2015-10-05 00:33+0200\n"
 "PO-Revision-Date: 2010-04-11 12:32+0200\n"
 "Last-Translator: Calimero <calimeroteknik@free.fr>\n"
 "Language-Team: French\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -148,7 +149,7 @@ msgstr "Chercher"
 msgid "Preferences"
 msgstr "Préférences"
 
-#: ../src/editor.c:255 ../src/editor.c:278
+#: ../src/editor.c:255 ../src/editor.c:278 ../src/editor.c:1434
 msgid "Properties"
 msgstr "Propriétés"
 
@@ -184,7 +185,7 @@ msgstr "Sensible à la casse"
 msgid "Wrap"
 msgstr "Boucler"
 
-#: ../src/editor.c:461 ../src/editor.c:1708
+#: ../src/editor.c:461 ../src/editor.c:1711
 msgid "Ready"
 msgstr "Prêt"
 
@@ -271,36 +272,36 @@ msgstr "Police :"
 msgid "Wrap mode:"
 msgstr "Retour à la ligne :"
 
-#: ../src/editor.c:1431
+#: ../src/editor.c:1432
 #, c-format
 msgid "Properties of %s"
 msgstr "Propriétés de %s"
 
-#: ../src/editor.c:1457
+#: ../src/editor.c:1460
 msgid "Filename:"
 msgstr "Nom du fichier :"
 
-#: ../src/editor.c:1464
+#: ../src/editor.c:1467
 msgid "Characters:"
 msgstr "Caractères :"
 
-#: ../src/editor.c:1471
+#: ../src/editor.c:1474
 msgid "Lines:"
 msgstr "Lignes :"
 
-#: ../src/editor.c:1531
+#: ../src/editor.c:1534
 msgid "Could not update the filename"
 msgstr "Erreur lors de la mise à jour du nom de fichier"
 
-#: ../src/editor.c:1683
+#: ../src/editor.c:1686
 msgid "Text not found"
 msgstr "Texte non trouvé"
 
-#: ../src/editor.c:1704
+#: ../src/editor.c:1707
 msgid "Unsaved changes"
 msgstr "Changements non sauvegardés"
 
-#: ../src/editor.c:1706
+#: ../src/editor.c:1709
 msgid "Saved"
 msgstr "Sauvegardé"
 
