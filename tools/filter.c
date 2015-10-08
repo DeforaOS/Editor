@@ -167,8 +167,7 @@ static int _error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fprintf(stderr, _("Usage: %s [-F][filename]\n"
-"  -F	Behave like a filter\n"), PROGNAME);
+	fprintf(stderr, _("Usage: %s command [argument...]\n"), PROGNAME);
 	return 1;
 }
 
