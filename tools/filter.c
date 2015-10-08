@@ -136,11 +136,12 @@ static int _filter_exec_child(char const * template, int argc,
 	int i;
 
 	/* prepare the arguments */
-	if((args = malloc(sizeof(*args) * (argc + 1))) == NULL)
+	if((args = malloc(sizeof(*args) * (argc + 2))) == NULL)
 		return -_error("malloc", 1);
 	for(i = 0; i < argc; i++)
 		args[i] = strdup(argv[i]);
 	args[i] = strdup(template);
+	args[i + 1] = NULL;
 	/* check for errors */
 	for(i = 0; ret == 0 && i <= argc; i++)
 		if(args[i] == NULL)
