@@ -1258,7 +1258,11 @@ void editor_show_preferences(Editor * editor, gboolean show)
 	/* font */
 	hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
 	widget = gtk_label_new(_("Font:"));
+#if GTK_CHECK_VERSION(3, 0, 0)
+	g_object_set(widget, "halign", GTK_ALIGN_START, NULL);
+#else
 	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
+#endif
 	gtk_size_group_add_widget(group, widget);
 	gtk_box_pack_start(GTK_BOX(hbox), widget, FALSE, TRUE, 0);
 	editor->pr_font = gtk_font_button_new();
@@ -1268,7 +1272,11 @@ void editor_show_preferences(Editor * editor, gboolean show)
 	/* wrap mode */
 	hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
 	widget = gtk_label_new(_("Wrap mode:"));
+#if GTK_CHECK_VERSION(3, 0, 0)
+	g_object_set(widget, "halign", GTK_ALIGN_START, NULL);
+#else
 	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
+#endif
 	gtk_size_group_add_widget(group, widget);
 	gtk_box_pack_start(GTK_BOX(hbox), widget, FALSE, TRUE, 0);
 #if GTK_CHECK_VERSION(2, 24, 0)
@@ -1408,14 +1416,22 @@ void editor_show_properties(Editor * editor, gboolean show)
 	/* characters */
 	snprintf(buf, sizeof(buf), "%u", gtk_text_buffer_get_char_count(tbuf));
 	widget = gtk_label_new(buf);
+#if GTK_CHECK_VERSION(3, 0, 0)
+	g_object_set(widget, "halign", GTK_ALIGN_START, NULL);
+#else
 	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
+#endif
 	gtk_size_group_add_widget(vgroup, widget);
 	widget = _properties_widget(editor, hgroup, _("Characters:"), widget);
 	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, FALSE, 0);
 	/* lines */
 	snprintf(buf, sizeof(buf), "%u", gtk_text_buffer_get_line_count(tbuf));
 	widget = gtk_label_new(buf);
+#if GTK_CHECK_VERSION(3, 0, 0)
+	g_object_set(widget, "halign", GTK_ALIGN_START, NULL);
+#else
 	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
+#endif
 	gtk_size_group_add_widget(vgroup, widget);
 	widget = _properties_widget(editor, hgroup, _("Lines:"), widget);
 	gtk_box_pack_start(GTK_BOX(vbox), widget, FALSE, FALSE, 0);
@@ -1434,7 +1450,11 @@ static GtkWidget * _properties_widget(Editor * editor, GtkSizeGroup * group,
 	hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
 	widget = gtk_label_new(label);
 	gtk_widget_override_font(widget, editor->bold);
+#if GTK_CHECK_VERSION(3, 0, 0)
+	g_object_set(widget, "halign", GTK_ALIGN_START, NULL);
+#else
 	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
+#endif
 	gtk_size_group_add_widget(group, widget);
 	gtk_box_pack_start(GTK_BOX(hbox), widget, FALSE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), value, TRUE, TRUE, 0);
