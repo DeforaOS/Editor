@@ -785,6 +785,7 @@ int editor_insert_file(Editor * editor, char const * filename)
 	size_t wlen;
 	GError * error = NULL;
 
+	/* FIXME use a GIOChannel instead (with a GtkDialog or GtkStatusBar) */
 	if((fp = fopen(filename, "r")) == NULL)
 	{
 		snprintf(buf, sizeof(buf), "%s: %s", filename, strerror(errno));
@@ -861,16 +862,9 @@ int editor_insert_file_dialog(Editor * editor)
 /* editor_open */
 int editor_open(Editor * editor, char const * filename)
 {
-	int res;
-	FILE * fp;
 	GtkTextBuffer * tbuf;
+	int res;
 	GtkTextIter iter;
-	char buf[BUFSIZ];
-	size_t len;
-	char * p;
-	size_t rlen;
-	size_t wlen;
-	GError * error = NULL;
 
 	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
 	if(gtk_text_buffer_get_modified(tbuf) == TRUE)
@@ -899,41 +893,8 @@ int editor_open(Editor * editor, char const * filename)
 		gtk_text_buffer_set_modified(tbuf, FALSE);
 		return 0;
 	}
-	/* FIXME use a GIOChannel instead (with a modal GtkDialog) */
-	if((fp = fopen(filename, "r")) == NULL)
-	{
-		snprintf(buf, sizeof(buf), "%s: %s", filename, strerror(errno));
-		return -editor_error(editor, buf, 1);
-	}
-	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
-	gtk_text_buffer_set_text(tbuf, "", 0);
-	gtk_text_buffer_get_start_iter(tbuf, &iter);
-	while((len = fread(buf, sizeof(char), sizeof(buf), fp)) > 0)
-	{
-#if 0
-		if((p = g_convert(buf, len, "UTF-8", "ISO-8859-15", &rlen, &wlen, NULL)) != NULL)
-		{
-			gtk_text_buffer_insert(tbuf, &iter, p, wlen);
-			g_free(p);
-		}
-		else
-			gtk_text_buffer_insert(tbuf, &iter, buf, len);
-#else
-		if((p = g_locale_to_utf8(buf, len, &rlen, &wlen, &error))
-				!= NULL)
-			/* FIXME may lose characters */
-			gtk_text_buffer_insert(tbuf, &iter, p, wlen);
-		else
-		{
-			editor_error(editor, error->message, 1);
-			g_error_free(error);
-			gtk_text_buffer_insert(tbuf, &iter, buf, len);
-		}
-#endif
-	}
-	if(fclose(fp) != 0)
-		/* XXX ignore this error */
-		editor_error(NULL, filename, 1);
+	if((res = editor_insert_file(editor, filename)) != 0)
+		return res;
 	gtk_text_buffer_set_modified(tbuf, FALSE);
 	/* XXX may fail */
 	_editor_set_filename(editor, filename);
