@@ -538,7 +538,7 @@ void editor_set_font(Editor * editor, char const * font)
 	PangoFontDescription * desc;
 
 	desc = pango_font_description_from_string(font);
-	gtk_widget_modify_font(editor->view, desc);
+	gtk_widget_override_font(editor->view, desc);
 	pango_font_description_free(desc);
 	config_set(editor->config, NULL, "font", font);
 }
@@ -1433,7 +1433,7 @@ static GtkWidget * _properties_widget(Editor * editor, GtkSizeGroup * group,
 
 	hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4);
 	widget = gtk_label_new(label);
-	gtk_widget_modify_font(widget, editor->bold);
+	gtk_widget_override_font(widget, editor->bold);
 	gtk_misc_set_alignment(GTK_MISC(widget), 0.0, 0.5);
 	gtk_size_group_add_widget(group, widget);
 	gtk_box_pack_start(GTK_BOX(hbox), widget, FALSE, TRUE, 0);
