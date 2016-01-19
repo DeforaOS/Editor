@@ -812,6 +812,7 @@ int editor_insert_file(Editor * editor, char const * filename)
 		{
 			editor_error(editor, error->message, 1);
 			g_error_free(error);
+			error = NULL;
 			gtk_text_buffer_insert_at_cursor(tbuf, buf, len);
 		}
 #endif
