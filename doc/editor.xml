@@ -57,8 +57,9 @@
 	<refsect1 id="description">
 		<title>Description</title>
 		<para><command>&name;</command> is a text editor with a graphical user
-			interface. It can nonetheless be used as a filter: reading data from the
-			standard input, and writing it again to the standard output.</para>
+			interface. It can be used as a filter as well: reading data from the
+			standard input and writing it back to the standard output, together with any
+			modification made.</para>
 	</refsect1>
 	<refsect1 id="options">
 		<title>Options</title>
