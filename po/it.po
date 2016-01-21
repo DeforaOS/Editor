@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Editor 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-22 00:29+0100\n"
+"POT-Creation-Date: 2016-01-22 00:42+0100\n"
 "PO-Revision-Date: 2010-04-09 16:43+0200\n"
 "Last-Translator: Pierre Pronchery <khorben@defora.org>\n"
 "Language-Team: Italian\n"
@@ -142,6 +142,7 @@ msgid "Preferences"
 msgstr "Preferenze"
 
 #: ../src/editor.c:250 ../src/editor.c:273 ../src/editor.c:1380
+#: ../src/editor.c:1386 ../src/editor.c:1395
 msgid "Properties"
 msgstr "Proprietà"
 
@@ -177,7 +178,7 @@ msgstr ""
 msgid "Wrap"
 msgstr ""
 
-#: ../src/editor.c:450 ../src/editor.c:1677
+#: ../src/editor.c:450 ../src/editor.c:1687
 msgid "Ready"
 msgstr ""
 
@@ -249,47 +250,47 @@ msgstr ""
 msgid "Properties of %s"
 msgstr ""
 
-#: ../src/editor.c:1406
+#: ../src/editor.c:1416
 msgid "Filename:"
 msgstr ""
 
-#: ../src/editor.c:1417
+#: ../src/editor.c:1427
 msgid "Characters:"
 msgstr ""
 
-#: ../src/editor.c:1428
+#: ../src/editor.c:1438
 msgid "Lines:"
 msgstr ""
 
-#: ../src/editor.c:1488
+#: ../src/editor.c:1498
 msgid "Could not update the filename"
 msgstr ""
 
-#: ../src/editor.c:1596
+#: ../src/editor.c:1606
 msgid "Text editor - "
 msgstr ""
 
-#: ../src/editor.c:1598
+#: ../src/editor.c:1608
 msgid "(Untitled)"
 msgstr ""
 
-#: ../src/editor.c:1652
+#: ../src/editor.c:1662
 msgid "Text not found"
 msgstr ""
 
-#: ../src/editor.c:1673
+#: ../src/editor.c:1683
 msgid "Unsaved changes"
 msgstr ""
 
-#: ../src/editor.c:1675
+#: ../src/editor.c:1685
 msgid "Saved"
 msgstr ""
 
-#: ../src/editor.c:1696
+#: ../src/editor.c:1706
 msgid "Text files"
 msgstr ""
 
-#: ../src/editor.c:1701
+#: ../src/editor.c:1711
 msgid "All files"
 msgstr ""
 
