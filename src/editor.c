@@ -786,7 +786,6 @@ int editor_insert_file(Editor * editor, char const * filename)
 	tbuf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
 	while((len = fread(buf, sizeof(char), sizeof(buf), fp)) > 0)
 	{
-		/* FIXME code duplicated from editor_open() */
 #if 0
 		if((p = g_convert(buf, len, "UTF-8", "ISO-8859-15", &rlen, &wlen, NULL)) != NULL)
 		{
