@@ -1591,8 +1591,9 @@ static void _editor_refresh_title(Editor * editor)
 {
 	char buf[256];
 
-	snprintf(buf, sizeof(buf), "%s%s", _("Text editor - "), editor->filename
-			== NULL ? _("(Untitled)") : editor->filename);
+	snprintf(buf, sizeof(buf), "%s%s", _("Text editor - "),
+			(editor->filename == NULL)
+			? _("(Untitled)") : editor->filename);
 	gtk_window_set_title(GTK_WINDOW(editor->window), buf);
 }
 
