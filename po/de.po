@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Editor 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-21 23:56+0100\n"
+"POT-Creation-Date: 2016-01-22 00:23+0100\n"
 "PO-Revision-Date: 2010-04-07 22:05+0200\n"
 "Last-Translator: Pierre Pronchery <khorben@defora.org>\n"
 "Language-Team: German\n"
@@ -149,7 +149,7 @@ msgstr "Suchen"
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: ../src/editor.c:255 ../src/editor.c:278 ../src/editor.c:1378
+#: ../src/editor.c:255 ../src/editor.c:278 ../src/editor.c:1385
 msgid "Properties"
 msgstr "Eigenschaften"
 
@@ -173,133 +173,133 @@ msgstr "wörte"
 msgid "words then characters"
 msgstr ""
 
-#: ../src/editor.c:409
+#: ../src/editor.c:412
 msgid "Find:"
 msgstr "Suchen:"
 
-#: ../src/editor.c:430
+#: ../src/editor.c:433
 msgid "Case-sensitive"
 msgstr ""
 
-#: ../src/editor.c:432
+#: ../src/editor.c:435
 msgid "Wrap"
 msgstr ""
 
-#: ../src/editor.c:452 ../src/editor.c:1675
+#: ../src/editor.c:455 ../src/editor.c:1682
 msgid "Ready"
 msgstr "Bereit"
 
-#: ../src/editor.c:571
+#: ../src/editor.c:574
 msgid "Text editor for the DeforaOS desktop"
 msgstr ""
 
-#: ../src/editor.c:578
+#: ../src/editor.c:581
 msgid "translator-credits"
 msgstr "Pierre Pronchery <khorben@defora.org>"
 
-#: ../src/editor.c:619
+#: ../src/editor.c:622
 msgid "Could not save the configuration"
 msgstr ""
 
-#: ../src/editor.c:637 ../src/editor.c:646 ../src/editor.c:1147
-#: ../src/editor.c:1153
+#: ../src/editor.c:640 ../src/editor.c:649 ../src/editor.c:1154
+#: ../src/editor.c:1160
 msgid "Question"
 msgstr "Frage"
 
-#: ../src/editor.c:672 ../src/editor.c:676
+#: ../src/editor.c:675 ../src/editor.c:679
 msgid "Error"
 msgstr "Fehler"
 
-#: ../src/editor.c:706 ../src/editor.c:854
+#: ../src/editor.c:709 ../src/editor.c:862
 msgid ""
 "There are unsaved changes.\n"
 "Discard or save them?"
 msgstr ""
 
-#: ../src/editor.c:819
+#: ../src/editor.c:834
 msgid "Insert file..."
 msgstr "Datei einfügen..."
 
-#: ../src/editor.c:825 ../src/editor.c:906
-msgid "Text files"
-msgstr "Text Dateien"
-
-#: ../src/editor.c:829 ../src/editor.c:910
-msgid "All files"
-msgstr "Alle Dateien"
-
-#: ../src/editor.c:860
+#: ../src/editor.c:868
 msgid "Discard"
 msgstr "Verwerfen"
 
-#: ../src/editor.c:900
+#: ../src/editor.c:908
 msgid "Open file..."
 msgstr "Offnen..."
 
-#: ../src/editor.c:1119 ../src/editor.c:1125
+#: ../src/editor.c:1126 ../src/editor.c:1132
 msgid "Partial write"
 msgstr ""
 
-#: ../src/editor.c:1152
+#: ../src/editor.c:1159
 msgid "This file already exists. Overwrite?"
 msgstr ""
 
-#: ../src/editor.c:1174
+#: ../src/editor.c:1181
 msgid "Save as..."
 msgstr "Speichern unter..."
 
-#: ../src/editor.c:1230
+#: ../src/editor.c:1237
 msgid "Text editor preferences"
 msgstr "Text Editor Einstellungen"
 
-#: ../src/editor.c:1250
+#: ../src/editor.c:1257
 msgid "Font:"
 msgstr ""
 
-#: ../src/editor.c:1264
+#: ../src/editor.c:1271
 msgid "Wrap mode:"
 msgstr ""
 
-#: ../src/editor.c:1376
+#: ../src/editor.c:1383
 #, c-format
 msgid "Properties of %s"
 msgstr "Eigenschaften von %s"
 
-#: ../src/editor.c:1404
+#: ../src/editor.c:1411
 msgid "Filename:"
 msgstr ""
 
-#: ../src/editor.c:1415
+#: ../src/editor.c:1422
 msgid "Characters:"
 msgstr ""
 
-#: ../src/editor.c:1426
+#: ../src/editor.c:1433
 msgid "Lines:"
 msgstr ""
 
-#: ../src/editor.c:1486
+#: ../src/editor.c:1493
 msgid "Could not update the filename"
 msgstr ""
 
-#: ../src/editor.c:1594
+#: ../src/editor.c:1601
 msgid "Text editor - "
 msgstr ""
 
-#: ../src/editor.c:1596
+#: ../src/editor.c:1603
 msgid "(Untitled)"
 msgstr "(Unbenannt)"
 
-#: ../src/editor.c:1650
+#: ../src/editor.c:1657
 msgid "Text not found"
 msgstr ""
 
-#: ../src/editor.c:1671
+#: ../src/editor.c:1678
 msgid "Unsaved changes"
 msgstr ""
 
-#: ../src/editor.c:1673
+#: ../src/editor.c:1680
 msgid "Saved"
 msgstr "Gespeichert"
+
+#: ../src/editor.c:1701
+msgid "Text files"
+msgstr "Text Dateien"
+
+#: ../src/editor.c:1706
+msgid "All files"
+msgstr "Alle Dateien"
 
 #: ../src/main.c:124
 #, c-format
