@@ -1379,10 +1379,20 @@ void editor_show_properties(Editor * editor, gboolean show)
 	else
 		snprintf(buf, sizeof(buf), "%s", _("Properties"));
 	g_free(p);
-	dialog = gtk_dialog_new_with_buttons(buf, GTK_WINDOW(editor->window),
+	dialog = gtk_message_dialog_new(GTK_WINDOW(editor->window),
 			GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
-			GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE, NULL);
-	gtk_window_set_default_size(GTK_WINDOW(dialog), 300, 200);
+			GTK_MESSAGE_INFO, GTK_BUTTONS_CLOSE,
+#if GTK_CHECK_VERSION(2, 6, 0)
+			"%s", _("Properties"));
+	gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
+#endif
+			"");
+#if GTK_CHECK_VERSION(2, 10, 0)
+	gtk_message_dialog_set_image(GTK_MESSAGE_DIALOG(dialog),
+			gtk_image_new_from_stock(GTK_STOCK_PROPERTIES,
+				GTK_ICON_SIZE_DIALOG));
+#endif
+	gtk_window_set_title(GTK_WINDOW(dialog), _("Properties"));
 	hgroup = gtk_size_group_new(GTK_SIZE_GROUP_HORIZONTAL);
 	vgroup = gtk_size_group_new(GTK_SIZE_GROUP_VERTICAL);
 #if GTK_CHECK_VERSION(2, 14, 0)
