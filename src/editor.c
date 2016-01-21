@@ -872,6 +872,7 @@ int editor_open(Editor * editor, char const * filename)
 	{
 		g_free(editor->filename);
 		editor->filename = NULL;
+		_editor_refresh_title(editor);
 		gtk_text_buffer_set_modified(tbuf, FALSE);
 		return 0;
 	}
