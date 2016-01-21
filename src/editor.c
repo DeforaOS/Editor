@@ -1671,10 +1671,18 @@ static void _editor_on_modified(GtkTextBuffer * tbuf, gpointer data)
 static void _helper_file_dialog_filters(GtkWidget * dialog)
 {
 	GtkFileFilter * filter;
+	char const * types[] = {
+		"application/x-perl",
+		"application/x-shellscript",
+		"application/xml",
+		"application/xslt+xml",
+		"text/plain" };
+	size_t i;
 
 	filter = gtk_file_filter_new();
 	gtk_file_filter_set_name(filter, _("Text files"));
-	gtk_file_filter_add_mime_type(filter, "text/plain");
+	for(i = 0; i < sizeof(types) / sizeof(*types); i++)
+		gtk_file_filter_add_mime_type(filter, types[i]);
 	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
 	filter = gtk_file_filter_new();
 	gtk_file_filter_set_name(filter, _("All files"));
