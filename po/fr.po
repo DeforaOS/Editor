@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Editor 0.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-21 23:17+0100\n"
+"POT-Creation-Date: 2016-01-21 23:56+0100\n"
 "PO-Revision-Date: 2010-04-11 12:32+0200\n"
 "Last-Translator: Calimero <calimeroteknik@free.fr>\n"
 "Language-Team: French\n"
@@ -149,7 +149,7 @@ msgstr "Chercher"
 msgid "Preferences"
 msgstr "Préférences"
 
-#: ../src/editor.c:255 ../src/editor.c:278 ../src/editor.c:1387
+#: ../src/editor.c:255 ../src/editor.c:278 ../src/editor.c:1378
 msgid "Properties"
 msgstr "Propriétés"
 
@@ -173,54 +173,46 @@ msgstr "mots"
 msgid "words then characters"
 msgstr "mots puis caractères"
 
-#: ../src/editor.c:410
+#: ../src/editor.c:409
 msgid "Find:"
 msgstr "Chercher :"
 
-#: ../src/editor.c:431
+#: ../src/editor.c:430
 msgid "Case-sensitive"
 msgstr "Sensible à la casse"
 
-#: ../src/editor.c:433
+#: ../src/editor.c:432
 msgid "Wrap"
 msgstr "Boucler"
 
-#: ../src/editor.c:453 ../src/editor.c:1672
+#: ../src/editor.c:452 ../src/editor.c:1675
 msgid "Ready"
 msgstr "Prêt"
 
-#: ../src/editor.c:469
-msgid "Text editor - "
-msgstr "Éditeur de texte - "
-
-#: ../src/editor.c:470
-msgid "(Untitled)"
-msgstr "(Sans titre)"
-
-#: ../src/editor.c:581
+#: ../src/editor.c:571
 msgid "Text editor for the DeforaOS desktop"
 msgstr "Éditeur de texte pour l'environnement DeforaOS"
 
-#: ../src/editor.c:588
+#: ../src/editor.c:578
 msgid "translator-credits"
 msgstr ""
 "Calimero <calimeroteknik@free.fr>\n"
 "Pierre Pronchery <khorben@defora.org>"
 
-#: ../src/editor.c:629
+#: ../src/editor.c:619
 msgid "Could not save the configuration"
 msgstr "Erreur lors de la sauvegarde de la configuration"
 
-#: ../src/editor.c:647 ../src/editor.c:656 ../src/editor.c:1156
-#: ../src/editor.c:1162
+#: ../src/editor.c:637 ../src/editor.c:646 ../src/editor.c:1147
+#: ../src/editor.c:1153
 msgid "Question"
 msgstr "Question"
 
-#: ../src/editor.c:682 ../src/editor.c:686
+#: ../src/editor.c:672 ../src/editor.c:676
 msgid "Error"
 msgstr "Erreur"
 
-#: ../src/editor.c:716 ../src/editor.c:864
+#: ../src/editor.c:706 ../src/editor.c:854
 msgid ""
 "There are unsaved changes.\n"
 "Discard or save them?"
@@ -228,80 +220,88 @@ msgstr ""
 "Il y a des changements non enregistrés.\n"
 "Abandonner ou enregistrer ?"
 
-#: ../src/editor.c:829
+#: ../src/editor.c:819
 msgid "Insert file..."
 msgstr "Insérer un fichier..."
 
-#: ../src/editor.c:835 ../src/editor.c:915
+#: ../src/editor.c:825 ../src/editor.c:906
 msgid "Text files"
 msgstr "Fichiers texte"
 
-#: ../src/editor.c:839 ../src/editor.c:919
+#: ../src/editor.c:829 ../src/editor.c:910
 msgid "All files"
 msgstr "Tous les fichiers"
 
-#: ../src/editor.c:870
+#: ../src/editor.c:860
 msgid "Discard"
 msgstr "Abandonner"
 
-#: ../src/editor.c:909
+#: ../src/editor.c:900
 msgid "Open file..."
 msgstr "Ouvrir un fichier..."
 
-#: ../src/editor.c:1128 ../src/editor.c:1134
+#: ../src/editor.c:1119 ../src/editor.c:1125
 msgid "Partial write"
 msgstr "Écriture partielle"
 
-#: ../src/editor.c:1161
+#: ../src/editor.c:1152
 msgid "This file already exists. Overwrite?"
 msgstr "Le fichier existe déjà. L'écraser ?"
 
-#: ../src/editor.c:1183
+#: ../src/editor.c:1174
 msgid "Save as..."
 msgstr "Enregistrer sous..."
 
-#: ../src/editor.c:1239
+#: ../src/editor.c:1230
 msgid "Text editor preferences"
 msgstr "Préférences de l'éditeur de texte"
 
-#: ../src/editor.c:1259
+#: ../src/editor.c:1250
 msgid "Font:"
 msgstr "Police :"
 
-#: ../src/editor.c:1273
+#: ../src/editor.c:1264
 msgid "Wrap mode:"
 msgstr "Retour à la ligne :"
 
-#: ../src/editor.c:1385
+#: ../src/editor.c:1376
 #, c-format
 msgid "Properties of %s"
 msgstr "Propriétés de %s"
 
-#: ../src/editor.c:1413
+#: ../src/editor.c:1404
 msgid "Filename:"
 msgstr "Nom du fichier :"
 
-#: ../src/editor.c:1424
+#: ../src/editor.c:1415
 msgid "Characters:"
 msgstr "Caractères :"
 
-#: ../src/editor.c:1435
+#: ../src/editor.c:1426
 msgid "Lines:"
 msgstr "Lignes :"
 
-#: ../src/editor.c:1495
+#: ../src/editor.c:1486
 msgid "Could not update the filename"
 msgstr "Erreur lors de la mise à jour du nom de fichier"
 
-#: ../src/editor.c:1647
+#: ../src/editor.c:1594
+msgid "Text editor - "
+msgstr "Éditeur de texte - "
+
+#: ../src/editor.c:1596
+msgid "(Untitled)"
+msgstr "(Sans titre)"
+
+#: ../src/editor.c:1650
 msgid "Text not found"
 msgstr "Texte non trouvé"
 
-#: ../src/editor.c:1668
+#: ../src/editor.c:1671
 msgid "Unsaved changes"
 msgstr "Changements non sauvegardés"
 
-#: ../src/editor.c:1670
+#: ../src/editor.c:1673
 msgid "Saved"
 msgstr "Sauvegardé"
 
