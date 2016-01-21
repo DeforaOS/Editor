@@ -71,7 +71,7 @@ msgstr "Seleccionar _todo"
 
 #: ../src/editor.c:185
 msgid "_Unselect all"
-msgstr ""
+msgstr "_Deseleccionar todo"
 
 #: ../src/editor.c:187
 msgid "_Find"
@@ -83,7 +83,7 @@ msgstr "Prefere_ncias"
 
 #: ../src/editor.c:197
 msgid "_File..."
-msgstr ""
+msgstr "_Archivo..."
 
 #: ../src/editor.c:203
 msgid "_Contents"
@@ -95,11 +95,11 @@ msgstr "Acerca _de"
 
 #: ../src/editor.c:216 ../src/editor.c:225
 msgid "_File"
-msgstr ""
+msgstr "_Archivo"
 
 #: ../src/editor.c:217 ../src/editor.c:226
 msgid "_Edit"
-msgstr ""
+msgstr "_Editar"
 
 #: ../src/editor.c:218 ../src/editor.c:227
 msgid "_Insert"
@@ -107,7 +107,7 @@ msgstr ""
 
 #: ../src/editor.c:219 ../src/editor.c:228
 msgid "_Help"
-msgstr ""
+msgstr "_Ayuda"
 
 #: ../src/editor.c:235
 msgid "New"
@@ -151,11 +151,11 @@ msgstr "Preferencias"
 
 #: ../src/editor.c:255 ../src/editor.c:278 ../src/editor.c:1387
 msgid "Properties"
-msgstr ""
+msgstr "Propriedades"
 
 #: ../src/editor.c:258 ../src/editor.c:281
 msgid "Help"
-msgstr ""
+msgstr "Ayuda"
 
 #: ../src/editor.c:293
 msgid "none"
@@ -167,7 +167,7 @@ msgstr ""
 
 #: ../src/editor.c:295
 msgid "words"
-msgstr ""
+msgstr "palabras"
 
 #: ../src/editor.c:296
 msgid "words then characters"
@@ -187,7 +187,7 @@ msgstr ""
 
 #: ../src/editor.c:453 ../src/editor.c:1672
 msgid "Ready"
-msgstr ""
+msgstr "Listo"
 
 #: ../src/editor.c:469
 msgid "Text editor - "
@@ -195,7 +195,7 @@ msgstr ""
 
 #: ../src/editor.c:470
 msgid "(Untitled)"
-msgstr ""
+msgstr "(Sin titulo)"
 
 #: ../src/editor.c:581
 msgid "Text editor for the DeforaOS desktop"
@@ -203,7 +203,7 @@ msgstr ""
 
 #: ../src/editor.c:588
 msgid "translator-credits"
-msgstr ""
+msgstr "Ana Carolina Rocha <carolina@defora.org>"
 
 #: ../src/editor.c:629
 msgid "Could not save the configuration"
@@ -212,11 +212,11 @@ msgstr ""
 #: ../src/editor.c:647 ../src/editor.c:656 ../src/editor.c:1156
 #: ../src/editor.c:1162
 msgid "Question"
-msgstr ""
+msgstr "Pregunta"
 
 #: ../src/editor.c:682 ../src/editor.c:686
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #: ../src/editor.c:716 ../src/editor.c:864
 msgid ""
@@ -230,11 +230,11 @@ msgstr ""
 
 #: ../src/editor.c:835 ../src/editor.c:915
 msgid "Text files"
-msgstr ""
+msgstr "Archivos de texto"
 
 #: ../src/editor.c:839 ../src/editor.c:919
 msgid "All files"
-msgstr ""
+msgstr "Todos los archivos"
 
 #: ../src/editor.c:870
 msgid "Discard"
@@ -242,7 +242,7 @@ msgstr "Descartar"
 
 #: ../src/editor.c:909
 msgid "Open file..."
-msgstr ""
+msgstr "Abrir archivo..."
 
 #: ../src/editor.c:1128 ../src/editor.c:1134
 msgid "Partial write"
@@ -271,11 +271,11 @@ msgstr ""
 #: ../src/editor.c:1385
 #, c-format
 msgid "Properties of %s"
-msgstr ""
+msgstr "Propriedades de %s"
 
 #: ../src/editor.c:1413
 msgid "Filename:"
-msgstr ""
+msgstr "Nombre de archivo:"
 
 #: ../src/editor.c:1424
 msgid "Characters:"
