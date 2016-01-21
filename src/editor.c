@@ -314,6 +314,9 @@ static void _editor_on_find_clicked(gpointer data);
 static void _editor_on_find_hide(gpointer data);
 static void _editor_on_modified(GtkTextBuffer * tbuf, gpointer data);
 
+/* helpers */
+static void _helper_file_dialog_filters(GtkWidget * dialog);
+
 
 /* public */
 /* functions */
@@ -821,14 +824,7 @@ int editor_insert_file_dialog(Editor * editor)
 			GTK_FILE_CHOOSER_ACTION_OPEN,
 			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 			GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
-	filter = gtk_file_filter_new();
-	gtk_file_filter_set_name(filter, _("Text files"));
-	gtk_file_filter_add_mime_type(filter, "text/plain");
-	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
-	filter = gtk_file_filter_new();
-	gtk_file_filter_set_name(filter, _("All files"));
-	gtk_file_filter_add_pattern(filter, "*");
-	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
+	_helper_file_dialog_filters(dialog);
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
 		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(
 					dialog));
@@ -902,14 +898,7 @@ int editor_open_dialog(Editor * editor)
 			GTK_FILE_CHOOSER_ACTION_OPEN,
 			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 			GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
-	filter = gtk_file_filter_new();
-	gtk_file_filter_set_name(filter, _("Text files"));
-	gtk_file_filter_add_mime_type(filter, "text/plain");
-	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
-	filter = gtk_file_filter_new();
-	gtk_file_filter_set_name(filter, _("All files"));
-	gtk_file_filter_add_pattern(filter, "*");
-	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
+	_helper_file_dialog_filters(dialog);
 	if(gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT)
 		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(
 					dialog));
@@ -1674,4 +1663,21 @@ static void _editor_on_modified(GtkTextBuffer * tbuf, gpointer data)
 	else
 		status = _("Ready");
 	_editor_set_status(editor, status);
+}
+
+
+/* helpers */
+/* helper_file_dialog_filters */
+static void _helper_file_dialog_filters(GtkWidget * dialog)
+{
+	GtkFileFilter * filter;
+
+	filter = gtk_file_filter_new();
+	gtk_file_filter_set_name(filter, _("Text files"));
+	gtk_file_filter_add_mime_type(filter, "text/plain");
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
+	filter = gtk_file_filter_new();
+	gtk_file_filter_set_name(filter, _("All files"));
+	gtk_file_filter_add_pattern(filter, "*");
+	gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), filter);
 }
