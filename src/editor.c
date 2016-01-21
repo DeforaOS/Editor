@@ -163,11 +163,6 @@ static const DesktopMenu _editor_menu_file_filter[] =
 
 static const DesktopMenu _editor_menu_edit[] =
 {
-	/* FIXME implement undo and redo */
-	{ N_("_Undo"), NULL, GTK_STOCK_UNDO, GDK_CONTROL_MASK,
-		GDK_KEY_Z },
-	{ N_("_Redo"), NULL, GTK_STOCK_REDO, GDK_CONTROL_MASK, GDK_KEY_R },
-	{ "", NULL, NULL, 0, 0 },
 	{ N_("Cu_t"), G_CALLBACK(on_edit_cut), GTK_STOCK_CUT, GDK_CONTROL_MASK,
 		GDK_KEY_X },
 	{ N_("_Copy"), G_CALLBACK(on_edit_copy), GTK_STOCK_COPY,
