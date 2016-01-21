@@ -304,6 +304,7 @@ static void _editor_set_status(Editor * editor, char const * status);
 static char * _editor_config_filename(void);
 static gboolean _editor_find(Editor * editor, char const * text,
 		gboolean sensitive, gboolean wrap);
+static void _editor_refresh_title(Editor * editor);
 
 /* callbacks */
 #if GTK_CHECK_VERSION(2, 16, 0)
@@ -317,8 +318,6 @@ static void _editor_on_modified(GtkTextBuffer * tbuf, gpointer data);
 /* public */
 /* functions */
 /* editor_new */
-static void _new_set_title(Editor * editor);
-
 Editor * editor_new(EditorPrefs * prefs)
 {
 	Editor * editor;
@@ -350,7 +349,7 @@ Editor * editor_new(EditorPrefs * prefs)
 	gtk_window_add_accel_group(GTK_WINDOW(editor->window), group);
 	g_object_unref(group);
 	gtk_window_set_default_size(GTK_WINDOW(editor->window), 600, 400);
-	_new_set_title(editor);
+	_editor_refresh_title(editor);
 #if GTK_CHECK_VERSION(2, 6, 0)
 	gtk_window_set_icon_name(GTK_WINDOW(editor->window), "text-editor");
 #endif
@@ -460,15 +459,6 @@ Editor * editor_new(EditorPrefs * prefs)
 	gtk_window_set_focus(GTK_WINDOW(editor->window), editor->view);
 	gtk_widget_show_all(editor->window);
 	return editor;
-}
-
-static void _new_set_title(Editor * editor)
-{
-	char buf[256];
-
-	snprintf(buf, sizeof(buf), "%s%s", _("Text editor - "), editor->filename
-		       	== NULL ? _("(Untitled)") : editor->filename);
-	gtk_window_set_title(GTK_WINDOW(editor->window), buf);
 }
 
 
@@ -890,7 +880,7 @@ int editor_open(Editor * editor, char const * filename)
 	gtk_text_buffer_set_modified(tbuf, FALSE);
 	/* XXX may fail */
 	_editor_set_filename(editor, filename);
-	_new_set_title(editor); /* XXX make it a generic private function */
+	_editor_refresh_title(editor);
 	/* place the cursor back at the top of the file */
 	gtk_text_buffer_get_start_iter(tbuf, &iter);
 	gtk_text_buffer_place_cursor(tbuf, &iter);
@@ -1168,7 +1158,7 @@ gboolean editor_save_as(Editor * editor, char const * filename)
 	if(_editor_set_filename(editor, filename) != 0
 		|| editor_save(editor) != TRUE)
 		return FALSE;
-	_new_set_title(editor);
+	_editor_refresh_title(editor);
 	return TRUE;
 }
 
@@ -1592,6 +1582,17 @@ static gboolean _find_match(Editor * editor, GtkTextBuffer * buffer,
 	gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(editor->view), &start, 0.0,
 			FALSE, 0.0, 0.0);
 	return TRUE;
+}
+
+
+/* editor_refresh_title */
+static void _editor_refresh_title(Editor * editor)
+{
+	char buf[256];
+
+	snprintf(buf, sizeof(buf), "%s%s", _("Text editor - "), editor->filename
+			== NULL ? _("(Untitled)") : editor->filename);
+	gtk_window_set_title(GTK_WINDOW(editor->window), buf);
 }
 
 
