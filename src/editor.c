@@ -727,6 +727,12 @@ void editor_copy(Editor * editor)
 	GtkTextBuffer * buffer;
 	GtkClipboard * clipboard;
 
+	if(gtk_window_get_focus(GTK_WINDOW(editor->window))
+			== editor->fi_entry)
+	{
+		gtk_editable_copy_clipboard(GTK_EDITABLE(editor->fi_entry));
+		return;
+	}
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
 	clipboard = gtk_widget_get_clipboard(editor->view,
 			GDK_SELECTION_CLIPBOARD);
@@ -740,6 +746,12 @@ void editor_cut(Editor * editor)
 	GtkTextBuffer * buffer;
 	GtkClipboard * clipboard;
 
+	if(gtk_window_get_focus(GTK_WINDOW(editor->window))
+			== editor->fi_entry)
+	{
+		gtk_editable_cut_clipboard(GTK_EDITABLE(editor->fi_entry));
+		return;
+	}
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
 	clipboard = gtk_widget_get_clipboard(editor->view,
 			GDK_SELECTION_CLIPBOARD);
@@ -917,6 +929,12 @@ void editor_paste(Editor * editor)
 	GtkTextBuffer * buffer;
 	GtkClipboard * clipboard;
 
+	if(gtk_window_get_focus(GTK_WINDOW(editor->window))
+			== editor->fi_entry)
+	{
+		gtk_editable_paste_clipboard(GTK_EDITABLE(editor->fi_entry));
+		return;
+	}
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(editor->view));
 	clipboard = gtk_widget_get_clipboard(editor->view,
 			GDK_SELECTION_CLIPBOARD);
