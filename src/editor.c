@@ -823,7 +823,6 @@ int editor_insert_file_dialog(Editor * editor)
 {
 	int ret;
 	GtkWidget * dialog;
-	GtkFileFilter * filter;
 	char * filename = NULL;
 
 	dialog = gtk_file_chooser_dialog_new(_("Insert file..."),
@@ -897,7 +896,6 @@ int editor_open_dialog(Editor * editor)
 {
 	int ret;
 	GtkWidget * dialog;
-	GtkFileFilter * filter;
 	gchar * filename = NULL;
 
 	dialog = gtk_file_chooser_dialog_new(_("Open file..."),
