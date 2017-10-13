@@ -42,8 +42,8 @@
 #define _(string) gettext(string)
 
 /* constants */
-#ifndef PROGNAME
-# define PROGNAME	"filter"
+#ifndef PROGNAME_FILTER
+# define PROGNAME_FILTER	"filter"
 #endif
 #ifndef PREFIX
 # define PREFIX		"/usr/local"
@@ -74,7 +74,7 @@ static int _filter_exec_child(char const * template, int argc,
 static int _filter(int argc, char const * argv[])
 {
 	int ret = 0;
-	char template[] = "/tmp/" PROGNAME ".XXXXXX";
+	char template[] = "/tmp/" PROGNAME_FILTER ".XXXXXX";
 	int fd;
 
 #ifdef DEBUG
@@ -90,7 +90,7 @@ static int _filter(int argc, char const * argv[])
 	if((ret = filter_read(fd, template)) != 0
 			|| (ret = _filter_exec(template, argc, argv)) != 0
 			|| (ret = filter_write(template)) != 0)
-		error_print(PROGNAME);
+		error_print(PROGNAME_FILTER);
 	/* remove the temporary file */
 	if(unlink(template) != 0)
 		/* we can otherwise ignore this error */
@@ -110,7 +110,7 @@ static int _filter_exec(char const * template, int argc, char const ** argv)
 	if(pid == 0)
 	{
 		if(_filter_exec_child(template, argc, argv) != 0)
-			error_print(PROGNAME);
+			error_print(PROGNAME_FILTER);
 		_exit(2);
 	}
 	fclose(stdin);
@@ -159,7 +159,7 @@ static int _filter_exec_child(char const * template, int argc,
 /* error */
 static int _error(char const * message, int ret)
 {
-	fputs(PROGNAME ": ", stderr);
+	fputs(PROGNAME_FILTER ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -168,7 +168,8 @@ static int _error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fprintf(stderr, _("Usage: %s command [argument...]\n"), PROGNAME);
+	fprintf(stderr, _("Usage: %s command [argument...]\n"),
+			PROGNAME_FILTER);
 	return 1;
 }
 
