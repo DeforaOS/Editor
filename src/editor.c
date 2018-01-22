@@ -355,7 +355,7 @@ Editor * editor_new(EditorPrefs * prefs)
 			G_CALLBACK(on_closex), editor);
 	editor->bold = pango_font_description_new();
 	pango_font_description_set_weight(editor->bold, PANGO_WEIGHT_BOLD);
-	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+	vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 	/* menubar */
 #ifndef EMBEDDED
 	widget = desktop_menubar_create(editor->prefs.filter
