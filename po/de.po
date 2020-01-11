@@ -1,11 +1,11 @@
 # $Id$
-# Copyright (c) 2010-2014 Pierre Pronchery <khorben@defora.org>
+# Copyright (c) 2010-2020 Pierre Pronchery <khorben@defora.org>
 # This file is distributed under the same license as the Editor package.
 # Pierre Pronchery <khorben@defora.org>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Editor 0.3.0\n"
+"Project-Id-Version: Editor 0.4.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-11 08:17+0100\n"
 "PO-Revision-Date: 2010-04-07 22:05+0200\n"
@@ -156,7 +156,7 @@ msgstr "kein"
 
 #: ../src/editor.c:289
 msgid "characters"
-msgstr ""
+msgstr "Zeichen"
 
 #: ../src/editor.c:290
 msgid "words"
@@ -164,7 +164,7 @@ msgstr "wörte"
 
 #: ../src/editor.c:291
 msgid "words then characters"
-msgstr ""
+msgstr "Wörte dann Zeichen"
 
 #: ../src/editor.c:407
 msgid "Find:"
@@ -172,11 +172,11 @@ msgstr "Suchen:"
 
 #: ../src/editor.c:428
 msgid "Case-sensitive"
-msgstr ""
+msgstr "Groß- und Kleinschreibung beachten"
 
 #: ../src/editor.c:430
 msgid "Wrap"
-msgstr ""
+msgstr "Umbrechen"
 
 #: ../src/editor.c:450 ../src/editor.c:1685
 msgid "Ready"
@@ -239,7 +239,7 @@ msgstr "Text Editor Einstellungen"
 
 #: ../src/editor.c:1250
 msgid "Font:"
-msgstr ""
+msgstr "Schriftart:"
 
 #: ../src/editor.c:1264
 msgid "Wrap mode:"
@@ -252,15 +252,15 @@ msgstr "Eigenschaften von %s"
 
 #: ../src/editor.c:1414
 msgid "Filename:"
-msgstr ""
+msgstr "Dateiname:"
 
 #: ../src/editor.c:1425
 msgid "Characters:"
-msgstr ""
+msgstr "Zeichen:"
 
 #: ../src/editor.c:1436
 msgid "Lines:"
-msgstr ""
+msgstr "Linien:"
 
 #: ../src/editor.c:1496
 msgid "Could not update the filename"
@@ -276,7 +276,7 @@ msgstr "(Unbenannt)"
 
 #: ../src/editor.c:1660
 msgid "Text not found"
-msgstr ""
+msgstr "Textteil nicht gefunden"
 
 #: ../src/editor.c:1681
 msgid "Unsaved changes"
