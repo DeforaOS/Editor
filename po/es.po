@@ -1,11 +1,11 @@
 # $Id$
-# Copyright (c) 2010-2014 Pierre Pronchery <khorben@defora.org>
+# Copyright (c) 2010-2020 Pierre Pronchery <khorben@defora.org>
 # This file is distributed under the same license as the Editor package.
 # Pierre Pronchery <khorben@defora.org>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Editor 0.3.0\n"
+"Project-Id-Version: Editor 0.4.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-01-11 08:17+0100\n"
 "PO-Revision-Date: 2010-04-07 22:07+0200\n"
@@ -79,7 +79,7 @@ msgstr "_Archivo..."
 
 #: ../src/editor.c:198
 msgid "_Contents"
-msgstr ""
+msgstr "_Contenidos"
 
 #: ../src/editor.c:200
 msgid "_About"
@@ -239,7 +239,7 @@ msgstr ""
 
 #: ../src/editor.c:1250
 msgid "Font:"
-msgstr ""
+msgstr "Fuente:"
 
 #: ../src/editor.c:1264
 msgid "Wrap mode:"
